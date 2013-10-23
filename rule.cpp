@@ -7,7 +7,7 @@ namespace automap {
 Rule::Rule(xmlNode* node) :
     SLDNode(node)
 {
-    
+    _symbolizerTypes.assign(&SymbolizerType[0], &SymbolizerType[0]+4);
 }
 
 Rule::~Rule()
@@ -40,6 +40,16 @@ double Rule::maxScaleDenominator()
     return _maxScaleDenominator;
 }
 
+std::vector<Filter> Rule::filters()
+{
+    return _filters;
+}
+
+std::vector<Symbolizer> Rule::symbolizers()
+{
+    return  _symbolizers;
+}
+
 void Rule::_parseNode()
 {
     xmlNode* currentElement = _node->children;
@@ -58,13 +68,17 @@ void Rule::_parseNode()
             std::istringstream scale((char*)currentElement->children->content);
             scale >> _maxScaleDenominator;
         } else if ((!xmlStrcmp(currentElement->name, (const xmlChar *)"Filter"))) {
-            
-        } else if ((!xmlStrcmp(currentElement->name, (const xmlChar *)"Symbolizer"))) {
-            
+            Filter filter(currentElement);
+            _filters.push_back(filter);
+        } else {
+            std::string name = (char*)currentElement->name;
+            if (std::find(_symbolizerTypes.begin(), _symbolizerTypes.end(), name) != _symbolizerTypes.end()) {
+                Symbolizer symbolizer(currentElement);
+                _symbolizers.push_back(symbolizer);
+            }
         }
         currentElement = currentElement->next;
     }
-
 }
 
 }
