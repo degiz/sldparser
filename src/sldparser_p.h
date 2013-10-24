@@ -1,5 +1,5 @@
-#ifndef SLDPARSER_H
-#define SLDPARSER_H
+#ifndef SLDPARSER_PRIVATE_H
+#define SLDPARSER_PRIVATE_H
 
 #include "sldnode.h"
 #include "namedlayer.h"
@@ -13,12 +13,13 @@
 
 namespace automap {
     
-class SLDParser {
+class SLDParserPrivate {
 public:
-    SLDParser(std::string);
-    ~SLDParser();
+    SLDParserPrivate(std::string);
+    ~SLDParserPrivate();
     
-    std::vector<NamedLayer> namedLayers();
+    bool loaded();
+    std::vector<NamedLayer> NamedLayers();
 private:
     std::string _fileName;
     bool _loaded;
@@ -28,10 +29,9 @@ private:
     
     bool _openFile();
     bool _parseFile();
-    void _parseNamedLayers();
-
+    bool _parseNamedLayers();
 };
 
 }
 
-#endif
+#endif // SLDPARSER_PRIVATE_H
