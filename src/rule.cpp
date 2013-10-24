@@ -4,8 +4,8 @@
 
 namespace automap {
     
-Rule::Rule(xmlNode* node) :
-    SLDNode(node)
+Rule::Rule(XmlIterator iterator) :
+    SLDNode(iterator)
 {
     _symbolizerTypes.assign(&SymbolizerType[0], &SymbolizerType[0]+4);
 }
@@ -52,32 +52,45 @@ std::vector<Symbolizer> Rule::symbolizers()
 
 void Rule::_parseNode()
 {
-    xmlNode* currentElement = _node->children;
+    // _iterator.moveToChildNode();
    
-    while (currentElement != NULL) {
-        if ((!xmlStrcmp(currentElement->name, (const xmlChar *)"Name"))) {
-            _name = (char*)currentElement->children->content;
-        } else if ((!xmlStrcmp(currentElement->name, (const xmlChar *)"Title"))) {
-            _title = (char*)currentElement->children->content;
-        } else if ((!xmlStrcmp(currentElement->name, (const xmlChar *)"Abstract"))) {
-            _abstract = (char*)currentElement->children->content;
-        } else if ((!xmlStrcmp(currentElement->name, (const xmlChar *)"MinScaleDenominator"))) {
-            std::istringstream scale((char*)currentElement->children->content);
+    while (_iterator.moveToNextNode()) {
+    
+        if (_iterator.name() == "Name") {
+        
+            _name = _iterator.value();
+            
+        } else if (_iterator.name() == "Title") {
+        
+            _title = _iterator.value();
+            
+        } else if (_iterator.name() == "Abstract") {
+        
+            _abstract = _iterator.value();
+            
+        } else if (_iterator.name() == "MinScaleDenominator") {
+        
+            std::istringstream scale(_iterator.value());
             scale >> _minScaleDenominator;
-        } else if ((!xmlStrcmp(currentElement->name, (const xmlChar *)"MaxScaleDenominator"))) {
-            std::istringstream scale((char*)currentElement->children->content);
+            
+        } else if (_iterator.name() == "MaxScaleDenominator") {
+        
+            std::istringstream scale(_iterator.value());
             scale >> _maxScaleDenominator;
-        } else if ((!xmlStrcmp(currentElement->name, (const xmlChar *)"Filter"))) {
-            Filter filter(currentElement);
+            
+        } else if (_iterator.name() == "Filter") {
+        
+            Filter filter(_iterator);
             _filters.push_back(filter);
+            
         } else {
-            std::string name = (char*)currentElement->name;
+        
+            std::string name = _iterator.name();
             if (std::find(_symbolizerTypes.begin(), _symbolizerTypes.end(), name) != _symbolizerTypes.end()) {
-                Symbolizer symbolizer(currentElement);
+                Symbolizer symbolizer(_iterator);
                 _symbolizers.push_back(symbolizer);
             }
         }
-        currentElement = currentElement->next;
     }
 }
 

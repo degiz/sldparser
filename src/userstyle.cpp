@@ -2,8 +2,8 @@
 
 namespace automap {
 
-UserStyle::UserStyle(xmlNode* node) :
-    SLDNode(node)
+UserStyle::UserStyle(XmlIterator iterator) :
+    SLDNode(iterator)
 {
     _parseNode();
 }
@@ -40,26 +40,35 @@ std::vector<FeatureStyleType> UserStyle::featureStyleTypes()
 
 void UserStyle::_parseNode()
 {
-    xmlNode* currentElement = _node->children;
+    // _iterator.moveToChildNode();
     
-    while (currentElement != NULL) {
-        if ((!xmlStrcmp(currentElement->name, (const xmlChar *)"Name"))) {
-            _name = (char*)currentElement->children->content;
-        } else if ((!xmlStrcmp(currentElement->name, (const xmlChar *)"Title"))) {
-            _title = (char*)currentElement->children->content;
-        } else if ((!xmlStrcmp(currentElement->name, (const xmlChar *)"Abstract"))) {
-            _abstract = (char*)currentElement->children->content;
-        } else if ((!xmlStrcmp(currentElement->name, (const xmlChar *)"IsDefault"))) {
-            if (*(char*)currentElement->children->content == '1') {
+    while (_iterator.moveToNextNode()) {
+        if (_iterator.name() == "Name") {
+        
+            _name = _iterator.value();
+            
+        } else if (_iterator.name() == "Title") {
+        
+            _title = _iterator.value();
+            
+        } else if (_iterator.name() == "Abstract") {
+        
+            _abstract = _iterator.value();
+            
+        } else if (_iterator.name() == "IsDefault") {
+        
+            if (_iterator.value() == "1") {
                 _isDefault = true;
             } else {
                 _isDefault = false;
             }
-        } else if ((!xmlStrcmp(currentElement->name, (const xmlChar *)"FeatureTypeStyle"))) {
-            FeatureStyleType feature(currentElement);
+            
+        } else if (_iterator.name() == "FeatureTypeStyle") {
+        
+            FeatureStyleType feature(_iterator);
             _features.push_back(feature);
+            
         }
-        currentElement = currentElement->next;
     }
 }
 

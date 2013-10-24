@@ -4,17 +4,12 @@
 #include "sldnode.h"
 #include "property.h"
 
-#include <vector>
-#include <map>
-#include <string>
-
 namespace automap {
     
 class CssCollection : public SLDNode {
 public:
-    CssCollection(xmlNode*);
+    CssCollection(XmlIterator);
     ~CssCollection();
-    
     
     std::map<std::string, std::string> cssParametrs();
     

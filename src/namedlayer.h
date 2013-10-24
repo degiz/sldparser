@@ -13,7 +13,7 @@ namespace automap {
     
 class NamedLayer :public SLDNode {
 public:
-    NamedLayer(xmlNode*);
+    NamedLayer(XmlIterator);
     ~NamedLayer();
     
     std::string name();

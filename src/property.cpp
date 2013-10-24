@@ -2,8 +2,8 @@
 
 namespace automap {
     
-Property::Property(xmlNode* node) :
-    SLDNode(node)
+Property::Property(XmlIterator iterator) :
+    SLDNode(iterator)
 {
     _binaryCamparations.assign(&BinaryComparisonOpType[0], &BinaryComparisonOpType[0]+9);
     _logicOperations.assign(&LogicOpsType[0], &LogicOpsType[0]+3);
@@ -48,21 +48,25 @@ void Property::_parseNode()
 
 void Property::_parseComaparison()
 {
-    xmlNode* currentElement = _node->children;
+    // _iterator.moveToChildNode();
     
-    while (currentElement != NULL) {
-        if ((!xmlStrcmp(currentElement->name, (const xmlChar *)"PropertyName"))) {
-            _propertyName = (char*)currentElement->children->content;
-        } else if((!xmlStrcmp(currentElement->name, (const xmlChar *)"Literal"))) {
-            _literal = (char*)currentElement->children->content;
+    while (_iterator.moveToNextNode()) {
+    
+        if (_iterator.name() == "PropertyName") {
+        
+            _propertyName = _iterator.value();
+            
+        } else if (_iterator.name() == "Literal") {
+        
+            _literal = _iterator.value();
+            
         }
-        currentElement = currentElement->next;
     }
 }
 
 void Property::_parseLogic()
 {
-    Property property(_node);
+    Property property(_iterator);
     _properties.push_back(property);
 }
     

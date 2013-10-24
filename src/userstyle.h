@@ -12,7 +12,7 @@ namespace automap {
     
 class UserStyle : public SLDNode {
 public:
-    UserStyle(xmlNode*);
+    UserStyle(XmlIterator);
     ~UserStyle();
     
     std::string name();

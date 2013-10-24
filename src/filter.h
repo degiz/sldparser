@@ -12,7 +12,7 @@ namespace automap {
     
 class Filter : public SLDNode {
 public:
-    Filter(xmlNode*);
+    Filter(XmlIterator);
     ~Filter();
     
     std::vector<Property> properties();

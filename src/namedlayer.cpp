@@ -2,8 +2,8 @@
 
 namespace automap {
     
-NamedLayer::NamedLayer(xmlNode* node) :
-    SLDNode(node)
+NamedLayer::NamedLayer(XmlIterator iterator) :
+    SLDNode(iterator)
 {
     _parseNode();
 }
@@ -25,16 +25,15 @@ std::vector<UserStyle> NamedLayer::userStyles()
 
 void NamedLayer::_parseNode()
 {
-    xmlNode* currentElement = _node->children;
+    // _iterator.moveToChildNode();
     
-    while (currentElement != NULL) {
-        if ((!xmlStrcmp(currentElement->name, (const xmlChar *)"Name"))) {
-            _layerName = (char*)currentElement->children->content;
-        } else if ((!xmlStrcmp(currentElement->name, (const xmlChar *)"UserStyle"))) {
-            UserStyle userStyle(currentElement);
+    while (_iterator.moveToNextNode()) {
+        if (_iterator.name() == "Name") {
+            _layerName = _iterator.value();
+        } else if (_iterator.name() == "UserStyle") {
+            UserStyle userStyle(_iterator);
             _userStyles.push_back(userStyle);
-        } 
-        currentElement = currentElement->next;
+        }
     }
 }
     

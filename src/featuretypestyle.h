@@ -4,20 +4,11 @@
 #include "sldnode.h"
 #include "rule.h"
 
-#include <vector>
-#include <map>
-#include <string>
-
-#include <libxml/tree.h>
-#include <libxml/parser.h>
-#include <libxml/xpath.h>
-#include <libxml/xpathInternals.h>
-
 namespace automap {
     
 class FeatureStyleType : public SLDNode {
 public:
-    FeatureStyleType(xmlNode*);
+    FeatureStyleType(XmlIterator);
     ~FeatureStyleType();
     
     std::string name();

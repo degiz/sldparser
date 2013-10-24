@@ -29,7 +29,7 @@ namespace automap {
     
 class Property : public SLDNode {
 public:
-    Property(xmlNode*);
+    Property(XmlIterator);
     ~Property();
     
     std::string propertyName();

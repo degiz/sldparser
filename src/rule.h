@@ -18,7 +18,7 @@ namespace automap {
     
 class Rule : public SLDNode {
 public:
-    Rule(xmlNode*);
+    Rule(XmlIterator);
     ~Rule();
     
     std::string name();

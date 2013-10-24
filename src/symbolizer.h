@@ -4,10 +4,6 @@
 #include "sldnode.h"
 #include "csscollection.h"
 
-#include <vector>
-#include <map>
-#include <string>
-
 const char* SymbolizerType[5] = {
     "PolygonSymbolizer",
     "LineSymbolizer",
@@ -20,7 +16,7 @@ namespace automap {
     
 class Symbolizer : public SLDNode {
 public:
-    Symbolizer(xmlNode*);
+    Symbolizer(XmlIterator);
     ~Symbolizer();
     
 private:

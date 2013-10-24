@@ -2,8 +2,8 @@
 
 namespace automap {
     
-CssCollection::CssCollection(xmlNode* node) :
-    SLDNode(node)
+CssCollection::CssCollection(XmlIterator iterator) :
+    SLDNode(iterator)
 {
     _parseNode();
 }
@@ -15,17 +15,13 @@ CssCollection::~CssCollection()
 
 void CssCollection::_parseNode()
 {
-    xmlNode* currentElement = _node->children;
+    // _iterator.moveToChildNode();
     
-    while (currentElement != NULL) {
-        if ((!xmlStrcmp(currentElement->name, (const xmlChar *)"CssParameter"))) {
-            xmlAttr* attribute = currentElement->children->properties;
-            xmlChar* value = xmlNodeListGetString(currentElement->doc, attribute->children, 1);
-            std::string valueString = (char*)value;
-            xmlFree(value);
-            _css[valueString] = (char*)currentElement->children->content;
+    while (_iterator.moveToNextNode()) {
+    
+        if (_iterator.name() == "CssParameter") {
+            
         }
-        currentElement = currentElement->next;
     }
 }
 

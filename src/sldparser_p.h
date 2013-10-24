@@ -3,13 +3,9 @@
 
 #include "sldnode.h"
 #include "namedlayer.h"
+#include "xmliterator.h"
 
 #include <string>
-#include <iostream>
-#include <vector>
-
-#include <libxml/parser.h>
-#include <libxml/tree.h>
 
 namespace automap {
     

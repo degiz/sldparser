@@ -35,8 +35,6 @@ bool SLDParserPrivate::_openFile()
 
 bool SLDParserPrivate::_parseFile()
 {
-    _rootElement = xmlDocGetRootElement(_document);
-    
     _loaded = _parseNamedLayers();
     
     return _loaded;
@@ -44,14 +42,13 @@ bool SLDParserPrivate::_parseFile()
 
 bool SLDParserPrivate::_parseNamedLayers()
 {
-    xmlNode* currentElement = _rootElement->children;
+    XmlIterator iterator(_document);
     
-    while (currentElement != NULL) {
-        if ((!xmlStrcmp(currentElement->name, (const xmlChar *)"NamedLayer"))) {
-            NamedLayer namedLayer(currentElement);
+    while (iterator.moveToNextNode()) {
+        if (iterator.name() == "NamedLayer") {
+            NamedLayer namedLayer(iterator);
             _namedLayers.push_back(namedLayer);
         }
-        currentElement = currentElement->next;
     }
     
     return true;
