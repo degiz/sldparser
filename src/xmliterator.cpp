@@ -28,17 +28,25 @@ XmlIterator& XmlIterator::operator=(const XmlIterator& other)
     return *this;
 }
 
-
 bool XmlIterator::moveToNextNode()
 {
     bool hasMoved = false;
     
     if (_hasNextNode()) {
         _currentNode = _currentNode->next;
-        hasMoved = true;
+        if (name() == "text") {
+            hasMoved = moveToNextNode();
+        } else {
+            hasMoved = true;
+        }
     }
     
     return hasMoved;
+}
+
+void XmlIterator::moveToPreviousNode()
+{
+    _currentNode = _currentNode->prev;
 }
 
 bool XmlIterator::moveToChildNode()
@@ -51,6 +59,11 @@ bool XmlIterator::moveToChildNode()
     }
     
     return hasMoved;
+}
+
+void XmlIterator::moveToParentNode()
+{
+    _currentNode = _currentNode->parent;
 }
 
 std::string XmlIterator::name()
@@ -71,19 +84,22 @@ std::string XmlIterator::value()
 
 std::string XmlIterator::attributeName()
 {
-    xmlAttr* attribute = _currentNode->children->properties;
+    /*xmlAttr* attribute = _currentNode->children->properties;
     xmlChar* name = const_cast<xmlChar*>(attribute->children->name);
     std::string attributeName = HARD_CAST (name);
+    */
+    std::string attributeName;
     
     return attributeName;
 }
 
 std::string XmlIterator::attributeValue()
 {
-    xmlAttr* attribute = _currentNode->children->properties;
+    /*xmlAttr* attribute = _currentNode->children->properties;
     xmlChar* value = xmlNodeListGetString(_currentNode->doc, attribute->children, 1);
     std::string attributeString = HARD_CAST (value);
-    xmlFree(value);
+    xmlFree(value);*/
+    std::string attributeString;
     
     return attributeString;
 }

@@ -21,6 +21,8 @@ public:
     XmlIterator& operator=(const XmlIterator&);
 
     bool moveToNextNode();
+    void moveToPreviousNode();
+    void moveToParentNode();
     bool moveToChildNode();
     std::string name();
     std::string value();

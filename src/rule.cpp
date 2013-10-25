@@ -83,13 +83,10 @@ void Rule::_parseNode()
             Filter filter(_iterator);
             _filters.push_back(filter);
             
-        } else {
+        } else  if (Symbolizer::isSymbolizer(_iterator.name())) {
         
-            std::string name = _iterator.name();
-            if (Symbolizer::isSymbolizer(name)) {
-                Symbolizer symbolizer(_iterator);
-                _symbolizers.push_back(symbolizer);
-            }
+            Symbolizer symbolizer(_iterator);
+            _symbolizers.push_back(symbolizer);
             
         }
     }

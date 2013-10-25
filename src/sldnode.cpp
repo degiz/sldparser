@@ -7,6 +7,7 @@ SLDNode::SLDNode(XmlIterator iterator) :
     _iterator(iterator)
 {
     _iterator.moveToChildNode();
+    // _iterator.moveToNextNode(); // skip "text"
 }
 
 SLDNode::~SLDNode()

@@ -5,6 +5,8 @@ namespace automap {
 Property::Property(XmlIterator iterator) :
     SLDNode(iterator)
 {
+    _iterator.moveToParentNode();
+    _iterator.moveToPreviousNode();
     _parseNode();
 }
 
@@ -32,6 +34,8 @@ void Property::_parseNode()
 {
     while (_iterator.moveToNextNode()) {
     
+        std::cout << "found node: << " << _iterator.name() << std::endl;
+        
         if (_iterator.name() == "PropertyName") {
         
             _propertyName = _iterator.value();
