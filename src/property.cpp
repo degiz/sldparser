@@ -5,15 +5,6 @@ namespace automap {
 Property::Property(XmlIterator iterator) :
     SLDNode(iterator)
 {
-    _binaryCamparations.assign(&BinaryComparisonOpType[0], &BinaryComparisonOpType[0]+9);
-    _logicOperations.assign(&LogicOpsType[0], &LogicOpsType[0]+3);
-    
-    if (std::find(_binaryCamparations.begin(), _binaryCamparations.end(), _nodeName) != _binaryCamparations.end()) {
-        _type = Comparison;
-    } else {
-        _type = Logic;
-    }
-    
     _parseNode();
 }
 
@@ -39,17 +30,6 @@ std::vector<Property> Property::properties()
 
 void Property::_parseNode()
 {
-    if (_type == Comparison) {
-        _parseComaparison();
-    } else {
-        _parseLogic();
-    }
-}
-
-void Property::_parseComaparison()
-{
-    // _iterator.moveToChildNode();
-    
     while (_iterator.moveToNextNode()) {
     
         if (_iterator.name() == "PropertyName") {
@@ -62,12 +42,6 @@ void Property::_parseComaparison()
             
         }
     }
-}
-
-void Property::_parseLogic()
-{
-    Property property(_iterator);
-    _properties.push_back(property);
 }
     
 }

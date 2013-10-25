@@ -6,7 +6,7 @@ SLDNode::SLDNode(XmlIterator iterator) :
     _nodeName(iterator.name()),
     _iterator(iterator)
 {
-
+    _iterator.moveToChildNode();
 }
 
 SLDNode::~SLDNode()

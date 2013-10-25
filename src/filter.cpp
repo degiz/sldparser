@@ -5,9 +5,6 @@ namespace automap {
 Filter::Filter(XmlIterator iterator) :
     SLDNode(iterator)
 {
-    _binaryCamparations.assign(&BinaryComparisonOpType[0], &BinaryComparisonOpType[0]+9);
-    _logicOperations.assign(&LogicOpsType[0], &LogicOpsType[0]+3);
-    
     _parseNode();
 }
 
@@ -23,21 +20,22 @@ void Filter::_parseNode()
     while (_iterator.moveToNextNode()) {
         std::string nodeName = _iterator.name();
         
-        if ((std::find(_binaryCamparations.begin(), _binaryCamparations.end(), nodeName) != _binaryCamparations.end()) ||
-            (std::find(_logicOperations.begin(), _logicOperations.end(), nodeName) != _logicOperations.end())) {
- 
-             Property property(_iterator);
-            _properties.push_back(property);
+        if (Operation::isCompareOperation(nodeName) || Operation::isLogicOperation(nodeName)) {
+        
+            Operation operation(_iterator);
+            _operations.push_back(operation);
             
         } else if (_iterator.name() =="FeatureId") {
+        
             _featureId = _iterator.attributeValue();
+            
         }
     }
 }
 
-std::vector<Property> Filter::properties()
+std::vector<Operation> Filter::operations()
 {
-    return _properties;
+    return _operations;
 }
 
 }

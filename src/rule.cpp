@@ -7,7 +7,7 @@ namespace automap {
 Rule::Rule(XmlIterator iterator) :
     SLDNode(iterator)
 {
-    _symbolizerTypes.assign(&SymbolizerType[0], &SymbolizerType[0]+4);
+    _parseNode();
 }
 
 Rule::~Rule()
@@ -86,10 +86,11 @@ void Rule::_parseNode()
         } else {
         
             std::string name = _iterator.name();
-            if (std::find(_symbolizerTypes.begin(), _symbolizerTypes.end(), name) != _symbolizerTypes.end()) {
+            if (Symbolizer::isSymbolizer(name)) {
                 Symbolizer symbolizer(_iterator);
                 _symbolizers.push_back(symbolizer);
             }
+            
         }
     }
 }

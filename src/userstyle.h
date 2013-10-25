@@ -21,6 +21,7 @@ public:
     bool isDefault();
     std::vector<FeatureStyleType> featureStyleTypes();
     
+    
 private:
     std::string _name;
     std::string _title;

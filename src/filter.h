@@ -2,7 +2,7 @@
 #define FILTER_H
 
 #include "sldnode.h"
-#include "property.h"
+#include "operation.h"
 
 #include <vector>
 #include <map>
@@ -15,11 +15,11 @@ public:
     Filter(XmlIterator);
     ~Filter();
     
-    std::vector<Property> properties();
+    std::vector<Operation> operations();
     
 private:
     void _parseNode();
-    std::vector<Property> _properties;
+    std::vector<Operation> _operations;
     std::string _featureId;
     
     std::vector<std::string> _binaryCamparations;

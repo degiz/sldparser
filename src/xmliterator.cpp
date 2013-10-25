@@ -2,13 +2,14 @@
 
 namespace automap {
 
-XmlIterator::XmlIterator()
+XmlIterator::XmlIterator(const XmlIterator& other)
 {
-    
+    _swap(other);
 }
 
 XmlIterator::XmlIterator(xmlDoc* document) :
-    _rootNode(xmlDocGetRootElement(document)->children)
+    _rootNode(xmlDocGetRootElement(document)->children),
+    _currentNode(_rootNode)
 {
     
 }
@@ -18,6 +19,15 @@ XmlIterator::XmlIterator(xmlNode* rootNode) :
 {
     
 }
+
+
+XmlIterator& XmlIterator::operator=(const XmlIterator& other)
+{
+    XmlIterator tmp(other);
+    _swap(tmp);
+    return *this;
+}
+
 
 bool XmlIterator::moveToNextNode()
 {
@@ -45,7 +55,7 @@ bool XmlIterator::moveToChildNode()
 
 std::string XmlIterator::name()
 {
-    std::string name = HARD_CAST (_currentNode->children->name);
+    std::string name = HARD_CAST (_currentNode->name);
     return name;
 }
 
@@ -57,6 +67,15 @@ std::string XmlIterator::value()
         value = HARD_CAST (_currentNode->children->content);
     }
     return value;
+}
+
+std::string XmlIterator::attributeName()
+{
+    xmlAttr* attribute = _currentNode->children->properties;
+    xmlChar* name = const_cast<xmlChar*>(attribute->children->name);
+    std::string attributeName = HARD_CAST (name);
+    
+    return attributeName;
 }
 
 std::string XmlIterator::attributeValue()
@@ -71,12 +90,19 @@ std::string XmlIterator::attributeValue()
 
 bool XmlIterator::_hasNextNode()
 {
-    return _currentNode->next == NULL;
+    return _currentNode->next != NULL;
 }
 
 bool XmlIterator::_hasChildren()
 {
-    return _currentNode->children == NULL;
+    return _currentNode->children != NULL;
 }
+
+void XmlIterator::_swap(const XmlIterator& other)
+{
+    _rootNode = other._rootNode;
+    _currentNode = other._currentNode;
+}
+
 
 }

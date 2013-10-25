@@ -1,17 +1,31 @@
 #include "symbolizer.h"
 
 namespace automap {
+
+const char* Symbolizer::_symbolizerType[] = {
+    "PolygonSymbolizer",
+    "LineSymbolizer",
+    "PointSymbolizer",
+    "TextSymbolizer",
+    "RasterSymbolizer"
+};
     
 Symbolizer::Symbolizer(XmlIterator iterator) :
     SLDNode(iterator)
 {
-    _symbolizerTypes.assign(&SymbolizerType[0], &SymbolizerType[0]+5);
     _parseNode();
 }
 
 Symbolizer::~Symbolizer()
 {
     
+}
+
+bool Symbolizer::isSymbolizer(std::string nodeName)
+{
+    static std::vector<std::string> symbolizers;
+    symbolizers.assign(&_symbolizerType[0], &_symbolizerType[0] + NUM_OF_SYMBOLIZERS);
+    return std::find(symbolizers.begin(), symbolizers.end(), nodeName) != symbolizers.end();
 }
 
 void Symbolizer::_parseNode()

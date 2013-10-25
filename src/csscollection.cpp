@@ -15,19 +15,18 @@ CssCollection::~CssCollection()
 
 void CssCollection::_parseNode()
 {
-    // _iterator.moveToChildNode();
-    
     while (_iterator.moveToNextNode()) {
-    
+        
         if (_iterator.name() == "CssParameter") {
-            
+            CssElement element(_iterator);
+            _csselements.push_back(element);
         }
     }
 }
 
-std::map<std::string, std::string> CssCollection::cssParametrs()
+std::vector<CssElement> CssCollection::csselements()
 {
-    return _css;
+    return _csselements;
 }
 
 }

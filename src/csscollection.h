@@ -2,7 +2,7 @@
 #define CSSCOLLECTION_H
 
 #include "sldnode.h"
-#include "property.h"
+#include "csselement.h"
 
 namespace automap {
     
@@ -11,14 +11,13 @@ public:
     CssCollection(XmlIterator);
     ~CssCollection();
     
-    std::map<std::string, std::string> cssParametrs();
+    std::vector<CssElement> csselements();
     
 private:
     void _parseNode();
-    std::vector<Property> _properties;
-    std::string _name;
+
     
-    std::map<std::string, std::string> _css;
+    std::vector<CssElement> _csselements;
 
 };
     

@@ -14,22 +14,18 @@ reinterpret_cast<char*>(const_cast<unsigned char *>(xmlChar))
 
 class XmlIterator {
 public:
-    XmlIterator();
+    XmlIterator(const XmlIterator&);
     XmlIterator(xmlDoc*);
     XmlIterator(xmlNode*);
     
-    XmlIterator& operator=(const XmlIterator& other)
-    {
-        XmlIterator tmp(other);
-        _swap(tmp);
-        return *this;
-    }
+    XmlIterator& operator=(const XmlIterator&);
 
     bool moveToNextNode();
     bool moveToChildNode();
     std::string name();
     std::string value();
     
+    std::string attributeName();
     std::string attributeValue();
 
 private:
@@ -39,12 +35,7 @@ private:
     bool _hasNextNode();
     bool _hasChildren();
     
-    void _swap(XmlIterator& other)
-    {
-        _rootNode = other._rootNode;
-        _currentNode = other._currentNode->children;
-    }
-
+    void _swap(const XmlIterator& other);
 };
 
 }
