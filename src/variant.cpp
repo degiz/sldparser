@@ -34,6 +34,11 @@ template<class T> void Variant::_deleteValue()
     _castTypeByPointer<T>()->~T();
 }
 
+template<class T> T* Variant::_castTypeByPointer(void* value)
+{
+    return static_cast<T *>(value);
+}
+
 template<class T> T* Variant::_castTypeByPointer()
 {
     return static_cast<T *>(_value);
@@ -110,4 +115,85 @@ std::string Variant::_convertToString()
 VariantType Variant::type()
 {
    return _type;
+}
+
+Variant::Variant(const Variant& other)
+{
+    _swap(other);
+}
+
+Variant& Variant::operator=(const Variant& other)
+{
+    _swap(other);
+}
+
+bool Variant::operator==(const Variant& other)
+{
+
+    if ((_type == UINT || _type == DOUBLE) && (other._type == UINT || other._type == DOUBLE)) {
+        return asDouble() == const_cast<Variant*>(&other)->asDouble();
+    } else {
+        return asString() == const_cast<Variant*>(&other)->asString();
+    }
+    
+    return false;
+}
+
+bool Variant::operator!=(const Variant& other)
+{
+    return !(*this == other);
+}
+
+bool Variant::operator<(const Variant& other)
+{
+    if ((_type == UINT || _type == DOUBLE) && (other._type == UINT || other._type == DOUBLE)) {
+        return asDouble() < const_cast<Variant*>(&other)->asDouble();
+    }
+    return false;
+}
+
+bool Variant::operator<=(const Variant& other)
+{
+    if ((_type == UINT || _type == DOUBLE) && (other._type == UINT || other._type == DOUBLE)) {
+        return asDouble() <= const_cast<Variant*>(&other)->asDouble();
+    }
+    return false;
+}
+
+bool Variant::operator>(const Variant& other)
+{
+    if ((_type == UINT || _type == DOUBLE) && (other._type == UINT || other._type == DOUBLE)) {
+        return asDouble() > const_cast<Variant*>(&other)->asDouble();
+    }
+    return false;
+}
+
+bool Variant::operator>=(const Variant& other)
+{
+    if ((_type == UINT || _type == DOUBLE) && (other._type == UINT || other._type == DOUBLE)) {
+        return asDouble() >= const_cast<Variant*>(&other)->asDouble();
+    }
+    return false;
+}
+
+void Variant::_swap(const Variant& other)
+{
+    _type = other._type;
+    
+    if (_type == STRING) {
+    
+        std::string* str = _castTypeByPointer<std::string>(other._value);
+        _createValue<std::string>(*str);
+        
+    } else if (_type == UINT) {
+    
+        unsigned int* value = _castTypeByPointer<unsigned int>(other._value);
+        _createValue<unsigned int>(*value);
+        
+    } else if (_type == DOUBLE) {
+    
+        double* value = _castTypeByPointer<double>(other._value);
+        _createValue<double>(*value);
+        
+    }
 }

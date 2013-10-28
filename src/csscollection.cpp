@@ -1,6 +1,11 @@
 #include "csscollection.h"
 
 namespace automap {
+
+CssCollection::CssCollection()
+{
+
+}
     
 CssCollection::CssCollection(XmlIterator iterator) :
     SLDNode(iterator)

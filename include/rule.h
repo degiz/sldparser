@@ -4,6 +4,7 @@
 #include "sldnode.h"
 #include "filter.h"
 #include "symbolizer.h"
+#include "variant.h"
 
 #include <vector>
 #include <map>
@@ -15,7 +16,7 @@
 #include <libxml/xpathInternals.h>
 
 namespace automap {
-    
+  
 class Rule : public SLDNode {
 public:
     Rule(XmlIterator);
@@ -26,8 +27,10 @@ public:
     std::string abstract();
     double minScaleDenominator();
     double maxScaleDenominator();
-    std::vector<Filter> filters();
-    std::vector<Symbolizer> symbolizers();
+    std::vector<Symbolizer>& Symbolizers();
+    
+    bool check(Feature&);
+    bool check(std::vector<Feature>&);
     
 private:
     std::string _name;
@@ -35,7 +38,7 @@ private:
     std::string _abstract;
     double _minScaleDenominator;
     double _maxScaleDenominator;
-    std::vector<Filter> _filters;
+    Filter _filter;
     std::vector<Symbolizer> _symbolizers;
     std::vector<std::string> _symbolizerTypes;
    

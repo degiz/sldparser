@@ -2,6 +2,11 @@
 
 namespace automap {
 
+XmlIterator::XmlIterator()
+{
+
+}
+
 XmlIterator::XmlIterator(const XmlIterator& other)
 {
     _swap(other);
@@ -84,23 +89,26 @@ std::string XmlIterator::value()
 
 std::string XmlIterator::attributeName()
 {
-    /*xmlAttr* attribute = _currentNode->children->properties;
-    xmlChar* name = const_cast<xmlChar*>(attribute->children->name);
-    std::string attributeName = HARD_CAST (name);
-    */
-    std::string attributeName;
+    /*xmlAttr* attribute = _currentNode->properties;
+    xmlChar* name = const_cast<xmlChar*>(attribute->name);
+    std::string attributeName = HARD_CAST (name);*/
+    
+    xmlAttr* attribute = _currentNode->properties;
+    xmlChar* value = xmlNodeListGetString(_currentNode->doc, attribute->children, 1);
+    std::string attributeName = HARD_CAST (value);
+    xmlFree(value);
     
     return attributeName;
 }
 
 std::string XmlIterator::attributeValue()
 {
-    /*xmlAttr* attribute = _currentNode->children->properties;
+    /*xmlAttr* attribute = _currentNode->properties;
     xmlChar* value = xmlNodeListGetString(_currentNode->doc, attribute->children, 1);
     std::string attributeString = HARD_CAST (value);
     xmlFree(value);*/
-    std::string attributeString;
     
+    std::string attributeString;
     return attributeString;
 }
 

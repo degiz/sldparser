@@ -2,6 +2,7 @@
 #define PROPERTY_H
 
 #include "sldnode.h"
+#include "variant.h"
 
 #include <vector>
 #include <iostream>
@@ -10,11 +11,12 @@ namespace automap {
     
 class Property : public SLDNode {
 public:
+    Property();
     Property(XmlIterator);
     ~Property();
     
-    std::string propertyName();
-    std::string literal();
+    std::string name();
+    Variant literal();
     
     std::vector<Property> properties();
    
@@ -22,7 +24,7 @@ private:
     std::vector<Property> _properties;
     
     std::string _propertyName;
-    std::string _literal;
+    Variant _literal;
 
     void _parseNode();
 };

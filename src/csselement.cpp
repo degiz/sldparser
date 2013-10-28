@@ -3,7 +3,8 @@
 namespace automap {
 
 CssElement::CssElement(XmlIterator iterator) :
-    SLDNode(iterator)
+    SLDNode(iterator),
+    _value("")
 {
     _iterator.moveToParentNode();
     _iterator.moveToPreviousNode();
@@ -15,6 +16,16 @@ CssElement::~CssElement()
     
 }
 
+std::string CssElement::name()
+{
+    return _name;
+}
+
+Variant CssElement::value()
+{
+    return _value;
+}
+
 void CssElement::_parseNode()
 {
     
@@ -23,7 +34,7 @@ void CssElement::_parseNode()
         if (_iterator.name() == "CssParameter") {
             
             _name = _iterator.attributeName();
-            _value = _iterator.attributeValue();
+            _value = Variant(_iterator.value()).asString();
             
         }
     }

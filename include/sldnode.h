@@ -9,6 +9,7 @@ namespace automap {
 
 class SLDNode {
 public:
+    SLDNode();
     SLDNode(XmlIterator);
     ~SLDNode();
     

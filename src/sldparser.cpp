@@ -1,8 +1,8 @@
-#include "sldparser_p.h"
+#include "sldparser.h"
 
 namespace automap {
 
-SLDParserPrivate::SLDParserPrivate(std::string fileName) :
+SLDParser::SLDParser(std::string fileName) :
     _fileName(fileName),
     _document(NULL),
     _loaded(false)
@@ -16,37 +16,37 @@ SLDParserPrivate::SLDParserPrivate(std::string fileName) :
     }
 }
 
-SLDParserPrivate::~SLDParserPrivate()
+SLDParser::~SLDParser()
 {
     xmlFreeDoc(_document);
     xmlCleanupParser();
 }
 
-bool SLDParserPrivate::loaded()
+bool SLDParser::loaded()
 {
     return _loaded;
 }
 
-bool SLDParserPrivate::_openFile()
+bool SLDParser::_openFile()
 {
     _document = xmlReadFile(_fileName.c_str(), NULL, 0);
     return _document != NULL;
 }
 
-bool SLDParserPrivate::_parseFile()
+bool SLDParser::_parseFile()
 {
     _loaded = _parseNamedLayers();
     
     return _loaded;
 }
 
-bool SLDParserPrivate::_parseNamedLayers()
+bool SLDParser::_parseNamedLayers()
 {
     XmlIterator iterator(_document);
     
     while (iterator.moveToNextNode()) {
         if (iterator.name() == "NamedLayer") {
-            NamedLayerPrivate namedLayer(iterator);
+            NamedLayer namedLayer(iterator);
             _namedLayers.push_back(namedLayer);
         }
     }
@@ -54,7 +54,7 @@ bool SLDParserPrivate::_parseNamedLayers()
     return true;
 }
 
-std::vector<NamedLayerPrivate>& SLDParserPrivate::NamedLayers()
+std::vector<NamedLayer>& SLDParser::NamedLayers()
 {
     return _namedLayers;
 }

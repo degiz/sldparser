@@ -8,6 +8,7 @@ namespace automap {
     
 class CssCollection : public SLDNode {
 public:
+    CssCollection();
     CssCollection(XmlIterator);
     ~CssCollection();
     

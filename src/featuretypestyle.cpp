@@ -38,7 +38,7 @@ std::vector<std::string> FeatureStyleType::semanticTypeIdentifiers()
     return _semanticTypeIdentifiers;
 }
 
-std::vector<Rule> FeatureStyleType::rules()
+std::vector<Rule>& FeatureStyleType::Rules()
 {
     return _rules;
 }

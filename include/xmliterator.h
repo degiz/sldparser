@@ -15,6 +15,7 @@ reinterpret_cast<char*>(const_cast<unsigned char *>(xmlChar))
 
 class XmlIterator {
 public:
+    XmlIterator();
     XmlIterator(const XmlIterator&);
     XmlIterator(xmlDoc*);
     XmlIterator(xmlNode*);

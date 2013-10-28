@@ -3,6 +3,7 @@
 
 #include "sldnode.h"
 #include "operation.h"
+#include "variant.h"
 
 #include <vector>
 #include <map>
@@ -12,10 +13,11 @@ namespace automap {
     
 class Filter : public SLDNode {
 public:
+    Filter();
     Filter(XmlIterator);
     ~Filter();
     
-    std::vector<Operation> operations();
+    bool check(Feature&);
     
 private:
     void _parseNode();

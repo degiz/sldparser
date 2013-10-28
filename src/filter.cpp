@@ -2,6 +2,11 @@
 
 namespace automap {
 
+Filter::Filter()
+{
+
+}
+
 Filter::Filter(XmlIterator iterator) :
     SLDNode(iterator)
 {
@@ -11,6 +16,15 @@ Filter::Filter(XmlIterator iterator) :
 Filter::~Filter()
 {
     
+}
+
+bool Filter::check(Feature& feature)
+{
+    for (auto i = _operations.begin(); i != _operations.end(); i++) {
+        if (!(*i).check(feature)) {
+            return false;
+        }
+    }
 }
 
 void Filter::_parseNode()
@@ -31,11 +45,6 @@ void Filter::_parseNode()
             
         }
     }
-}
-
-std::vector<Operation> Filter::operations()
-{
-    return _operations;
 }
 
 }

@@ -37,6 +37,60 @@ Operation::~Operation()
 
 }
 
+Property Operation::property()
+{
+    return _property;
+}
+
+bool Operation::check(Feature& feature)
+{
+    if (_isLogicalOperation) {
+        if (_nodeName == "And") {
+            for (auto i = _operations.begin(); i != _operations.end(); i++) {
+                if (!(*i).check(feature)) {
+                    return false;
+                }
+            }
+        } else if (_nodeName == "Or") {
+            for (auto i = _operations.begin(); i != _operations.end(); i++) {
+                if ((*i).check(feature)) {
+                    return true;
+                }
+            }
+        } else if (_nodeName == "Not") {
+            return !check(feature);
+        }
+    } else {
+        bool found, matches = false;
+        for (auto i = _operations.begin(); i != _operations.end(); i++) {
+            if ((*i).property().name() == feature.name) {
+                found = true;
+                if (_nodeName == "PropertyIsEqualTo") {
+                    matches = feature.value == (*i).property().literal();
+                } else if (_nodeName == "PropertyIsNotEqualTo") {
+                    matches = feature.value != (*i).property().literal();
+                } else if (_nodeName == "PropertyIsLessThan") {
+                    matches = feature.value < (*i).property().literal();
+                } else if (_nodeName == "PropertyIsGreaterThan") {
+                    matches = feature.value > (*i).property().literal();
+                } else if (_nodeName == "PropertyIsLessThanOrEqualTo") {
+                    matches = feature.value <= (*i).property().literal();
+                } else if (_nodeName == "PropertyIsGreaterThanOrEqualTo") {
+                    matches = feature.value >= (*i).property().literal();
+                } else {
+                    matches = true; // all other Properties not implemented
+                }
+            }
+        }
+        if (!found) {
+            return true;
+        } else {
+            return matches;
+        }
+    }
+    return false;
+}
+
 bool Operation::isLogicalOperation()
 {
     return _isLogicalOperation;
@@ -56,16 +110,6 @@ bool Operation::isCompareOperation(std::string name)
     return std::find(compareOperations.begin(), compareOperations.end(), name) != compareOperations.end();
 }
 
-std::vector<Operation>& Operation::operations()
-{
-    return _operations;
-}
-
-std::vector<Property>& Operation::properties()
-{
-    return _properties;
-}
-
 void Operation::_parseNode()
 {
     XmlIterator it(_iterator);
@@ -76,14 +120,11 @@ void Operation::_parseNode()
     }
     
     while (it.moveToNextNode()) {
-    
-        //std::cout << it.name() << std::endl;
-        //std::cout << _nodeName << std::endl;
         
         if (isCompareOperation(_nodeName)) {
         
             Property property(it);
-            _properties.push_back(property);
+            _property = property;
             break;
             
         } else if (isLogicOperation(_nodeName)) {

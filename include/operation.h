@@ -3,6 +3,7 @@
 
 #include "sldnode.h"
 #include "property.h"
+#include "variant.h"
 
 #include <vector>
 #include <map>
@@ -23,16 +24,16 @@ public:
     static bool isCompareOperation(std::string);
     
     bool isLogicalOperation();
+    bool check(Feature&);
     
-    std::vector<Operation>& operations();
-    std::vector<Property>& properties();
-    
+    Property property();
+   
 private:
     static const char* _binaryComparisonOpType[];
     static const char* _logicOpsType[];
     bool _isLogicalOperation;
     std::vector<Operation> _operations;
-    std::vector<Property> _properties;
+    Property _property;
 
     void _parseNode();
     

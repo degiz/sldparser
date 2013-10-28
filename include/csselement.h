@@ -3,17 +3,21 @@
 
 #include "sldnode.h"
 #include "property.h"
+#include "variant.h"
 
 namespace automap {
     
 class CssElement : public SLDNode {
 public:
     CssElement(XmlIterator);
-    ~CssElement(); 
+    ~CssElement();
+    
+    std::string name();
+    Variant value();
     
 private:
     std::string _name;
-    std::string _value;
+    Variant _value;
     
     void _parseNode();
 };

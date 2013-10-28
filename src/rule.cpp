@@ -15,6 +15,22 @@ Rule::~Rule()
     
 }
 
+bool Rule::check(Feature& feature)
+{
+    return _filter.check(feature);
+}
+
+bool Rule::check(std::vector<Feature>& features)
+{
+    for (auto i = features.begin(); i != features.end(); i++) {
+        if (!check(*i)) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 std::string Rule::name()
 {
     return _name;
@@ -40,12 +56,7 @@ double Rule::maxScaleDenominator()
     return _maxScaleDenominator;
 }
 
-std::vector<Filter> Rule::filters()
-{
-    return _filters;
-}
-
-std::vector<Symbolizer> Rule::symbolizers()
+std::vector<Symbolizer>& Rule::Symbolizers()
 {
     return  _symbolizers;
 }
@@ -81,7 +92,7 @@ void Rule::_parseNode()
         } else if (_iterator.name() == "Filter") {
         
             Filter filter(_iterator);
-            _filters.push_back(filter);
+            _filter = filter;
             
         } else  if (Symbolizer::isSymbolizer(_iterator.name())) {
         

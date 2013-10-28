@@ -11,13 +11,13 @@
 
 namespace automap {
     
-class NamedLayerPrivate :public SLDNode {
+class NamedLayer :public SLDNode {
 public:
-    NamedLayerPrivate(XmlIterator);
-    ~NamedLayerPrivate();
+    NamedLayer(XmlIterator);
+    ~NamedLayer();
     
     std::string name();
-    std::vector<UserStyle> userStyles();
+    std::vector<UserStyle>& UserStyles();
 
 private:
     std::string _layerName;

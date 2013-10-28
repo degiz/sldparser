@@ -2,6 +2,11 @@
 
 namespace automap {
 
+SLDNode::SLDNode()
+{
+
+}
+
 SLDNode::SLDNode(XmlIterator iterator) :
     _nodeName(iterator.name()),
     _iterator(iterator)

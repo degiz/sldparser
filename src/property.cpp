@@ -1,9 +1,16 @@
 #include "property.h"
 
 namespace automap {
+
+Property::Property() :
+    _literal("")
+{
+
+}
     
 Property::Property(XmlIterator iterator) :
-    SLDNode(iterator)
+    SLDNode(iterator),
+    _literal("")
 {
     //_iterator.moveToParentNode();
     //_iterator.moveToPreviousNode();
@@ -15,12 +22,12 @@ Property::~Property()
     
 }
 
-std::string Property::propertyName()
+std::string Property::name()
 {
     return _propertyName;
 }
 
-std::string Property::literal()
+Variant Property::literal()
 {
     return _literal;
 }
@@ -42,7 +49,7 @@ void Property::_parseNode()
             
         } else if (_iterator.name() == "Literal") {
         
-            _literal = _iterator.value();
+            _literal = Variant(_iterator.value());
             
         }
     }
