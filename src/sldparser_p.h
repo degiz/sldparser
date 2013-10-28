@@ -2,7 +2,7 @@
 #define SLDPARSER_PRIVATE_H
 
 #include "sldnode.h"
-#include "namedlayer.h"
+#include "namedlayer_p.h"
 #include "xmliterator.h"
 
 #include <string>
@@ -15,13 +15,13 @@ public:
     ~SLDParserPrivate();
     
     bool loaded();
-    std::vector<NamedLayer> NamedLayers();
+    std::vector<NamedLayerPrivate>& NamedLayers();
 private:
     std::string _fileName;
     bool _loaded;
     xmlDoc* _document;
     xmlNode* _rootElement;
-    std::vector<NamedLayer> _namedLayers;
+    std::vector<NamedLayerPrivate> _namedLayers;
     
     bool _openFile();
     bool _parseFile();

@@ -46,7 +46,7 @@ bool SLDParserPrivate::_parseNamedLayers()
     
     while (iterator.moveToNextNode()) {
         if (iterator.name() == "NamedLayer") {
-            NamedLayer namedLayer(iterator);
+            NamedLayerPrivate namedLayer(iterator);
             _namedLayers.push_back(namedLayer);
         }
     }
@@ -54,7 +54,7 @@ bool SLDParserPrivate::_parseNamedLayers()
     return true;
 }
 
-std::vector<NamedLayer> SLDParserPrivate::NamedLayers()
+std::vector<NamedLayerPrivate>& SLDParserPrivate::NamedLayers()
 {
     return _namedLayers;
 }

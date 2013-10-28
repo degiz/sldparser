@@ -2,6 +2,7 @@
 #define XMLITERATOR_H
 
 #include <sstream>
+#include <iostream>
 
 #include <libxml/parser.h>
 #include <libxml/tree.h>
