@@ -8,7 +8,8 @@
 enum VariantType {
     UINT = 0,
     DOUBLE,
-    STRING
+    STRING,
+    NONE
 };
 
 class Variant {
@@ -44,6 +45,7 @@ private:
     template<class T> T _convertToIntegralType(VariantType);
     std::string _convertToString();
     void _swap(const Variant&);
+    void _clear();
    
     void* _value;
 };

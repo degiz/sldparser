@@ -8,7 +8,7 @@
 namespace automap {
 
 enum SymbolizerTypes {
-        PolygonSymbolizer,
+        PolygonSymbolizer = 0,
         PointSymbolizer,
         TextSymbolizer,
         RasterSymbolizer,

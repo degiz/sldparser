@@ -20,7 +20,14 @@ Variant::Variant(std::string value)
 
 Variant::~Variant()
 {
-    if (_type == UINT) {
+    _clear();
+}
+
+void Variant::_clear()
+{
+    if (_type == NONE) {
+        return;
+    } else if (_type == UINT) {
         _deleteValue<unsigned int>();
     } else if (_type == DOUBLE) {
         _deleteValue<double>();
@@ -65,17 +72,29 @@ void Variant::_createValue(T v)
 
 unsigned int Variant::asUInt()
 {
-    return _convertToIntegralType<unsigned int>(UINT);
+    if (_type == NONE) {
+        return 0;
+    } else {
+        return _convertToIntegralType<unsigned int>(UINT);
+    }
 }
 
 double Variant::asDouble()
 {
-    return _convertToIntegralType<double>(DOUBLE);
+    if (_type == NONE) {
+        return 0;
+    } else {
+        return _convertToIntegralType<double>(DOUBLE);
+    }
 }
 
 std::string Variant::asString()
 {
-    return _convertToString();
+    if (_type == NONE) {
+        return "";
+    } else {
+        return _convertToString();
+    }
 }
 
 template<class T>
@@ -119,6 +138,7 @@ VariantType Variant::type()
 
 Variant::Variant(const Variant& other)
 {
+    _type = NONE;
     _swap(other);
 }
 
@@ -178,6 +198,8 @@ bool Variant::operator>=(const Variant& other)
 
 void Variant::_swap(const Variant& other)
 {
+    _clear();
+    
     _type = other._type;
     
     if (_type == STRING) {
