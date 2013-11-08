@@ -66,3 +66,15 @@ void VariantTest::checkCopy()
     CPPUNIT_ASSERT(temp_v4.asUInt() == 1984);
 }
 
+void VariantTest::checkAssignment()
+{
+    Variant temp_v1("1984"), temp_v2((unsigned int) 1984);
+    Variant temp_v3(""), temp_v4("");
+    
+    temp_v3 = temp_v1;
+    temp_v4 = temp_v2;
+    
+    CPPUNIT_ASSERT(temp_v3.asString() == "1984");
+    CPPUNIT_ASSERT(temp_v4.asUInt() == 1984);
+}
+

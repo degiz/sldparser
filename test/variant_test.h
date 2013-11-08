@@ -12,6 +12,7 @@ class VariantTest : public CPPUNIT_NS::TestCase {
     CPPUNIT_TEST( checkAsUInt );
     CPPUNIT_TEST( checkIsDouble );
     CPPUNIT_TEST( checkCopy );
+    CPPUNIT_TEST( checkAssignment );
     CPPUNIT_TEST_SUITE_END();
     
 public:
@@ -27,14 +28,15 @@ public:
     void checkIsDouble();
     
     void checkCopy();
+    void checkAssignment();
     
 private:
     Variant* _vs1, *_vs2, *_vs3;
-    Variant* _vi1, *_vi2, *_vi3;
-    Variant* _vd1, *_vd2, *_vd3;
+    Variant* _vi1, *_vi2;
+    Variant* _vd1;
     
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION( VariantTest );
 
-#endif
+#endif // VARIANT_TEST

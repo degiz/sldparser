@@ -33,6 +33,16 @@ SymbolizerTypes Symbolizer::type()
     return _type;
 }
 
+std::string Symbolizer::color()
+{
+    return _color;
+}
+
+double Symbolizer::width()
+{
+    return _width;
+}
+
 void Symbolizer::_parseNode()
 {
     if (_nodeName == "PolygonSymbolizer") {

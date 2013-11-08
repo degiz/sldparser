@@ -27,7 +27,7 @@ public:
     
     std::string color();
     double opacity();
-    unsigned int width();
+    double width();
     std::string linecap();
     std::string linejoin();
     double dashoffset();

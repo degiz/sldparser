@@ -10,8 +10,9 @@ SLDParser::SLDParser(std::string fileName) :
     // TODO: initializer of libxml and shutdown in static struct
     
     if (_openFile()) {
-        _parseFile();
+        _loaded = _parseFile();
     } else {
+        _loaded = false;
         std::cerr << "Failed to read sld file: " << fileName << std::endl;
     }
 }
@@ -35,9 +36,7 @@ bool SLDParser::_openFile()
 
 bool SLDParser::_parseFile()
 {
-    _loaded = _parseNamedLayers();
-    
-    return _loaded;
+    return _parseNamedLayers();
 }
 
 bool SLDParser::_parseNamedLayers()
@@ -51,7 +50,7 @@ bool SLDParser::_parseNamedLayers()
         }
     }
     
-    return true;
+    return _namedLayers.size() > 0;
 }
 
 std::vector<NamedLayer>& SLDParser::NamedLayers()
