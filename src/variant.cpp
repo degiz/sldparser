@@ -166,34 +166,34 @@ bool Variant::operator!=(const Variant& other)
 
 bool Variant::operator<(const Variant& other)
 {
-    if ((_type == UINT || _type == DOUBLE) && (other._type == UINT || other._type == DOUBLE)) {
+    //if ((_type == UINT || _type == DOUBLE) && (other._type == UINT || other._type == DOUBLE)) {
         return asDouble() < const_cast<Variant*>(&other)->asDouble();
-    }
-    return false;
+    //}
+    //return false;
 }
 
 bool Variant::operator<=(const Variant& other)
 {
-    if ((_type == UINT || _type == DOUBLE) && (other._type == UINT || other._type == DOUBLE)) {
+    //if ((_type == UINT || _type == DOUBLE) && (other._type == UINT || other._type == DOUBLE)) {
         return asDouble() <= const_cast<Variant*>(&other)->asDouble();
-    }
-    return false;
+    //}
+    //return false;
 }
 
 bool Variant::operator>(const Variant& other)
 {
-    if ((_type == UINT || _type == DOUBLE) && (other._type == UINT || other._type == DOUBLE)) {
+    //if ((_type == UINT || _type == DOUBLE) && (other._type == UINT || other._type == DOUBLE)) {
         return asDouble() > const_cast<Variant*>(&other)->asDouble();
-    }
-    return false;
+    //}
+    //return false;
 }
 
 bool Variant::operator>=(const Variant& other)
 {
-    if ((_type == UINT || _type == DOUBLE) && (other._type == UINT || other._type == DOUBLE)) {
+    //if ((_type == UINT || _type == DOUBLE) && (other._type == UINT || other._type == DOUBLE)) {
         return asDouble() >= const_cast<Variant*>(&other)->asDouble();
-    }
-    return false;
+    //}
+    //return false;
 }
 
 void Variant::_swap(const Variant& other)

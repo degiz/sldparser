@@ -51,37 +51,39 @@ bool Operation::check(Feature& feature)
                     return false;
                 }
             }
+            return true;
         } else if (_nodeName == "Or") {
             for (auto i = _operations.begin(); i != _operations.end(); i++) {
                 if ((*i).check(feature)) {
                     return true;
                 }
             }
+            return false;
         } else if (_nodeName == "Not") {
-            return !check(feature);
+            return !_operations[0].check(feature);
         }
     } else {
         bool found, matches = false;
-        for (auto i = _operations.begin(); i != _operations.end(); i++) {
-            if ((*i).property().name() == feature.name) {
-                found = true;
-                if (_nodeName == "PropertyIsEqualTo") {
-                    matches = feature.value == (*i).property().literal();
-                } else if (_nodeName == "PropertyIsNotEqualTo") {
-                    matches = feature.value != (*i).property().literal();
-                } else if (_nodeName == "PropertyIsLessThan") {
-                    matches = feature.value < (*i).property().literal();
-                } else if (_nodeName == "PropertyIsGreaterThan") {
-                    matches = feature.value > (*i).property().literal();
-                } else if (_nodeName == "PropertyIsLessThanOrEqualTo") {
-                    matches = feature.value <= (*i).property().literal();
-                } else if (_nodeName == "PropertyIsGreaterThanOrEqualTo") {
-                    matches = feature.value >= (*i).property().literal();
-                } else {
-                    matches = true; // all other Properties not implemented
-                }
+
+        if (_property.name() == feature.name) {
+            found = true;
+            if (_nodeName == "PropertyIsEqualTo") {
+                matches = feature.value == _property.literal();
+            } else if (_nodeName == "PropertyIsNotEqualTo") {
+                matches = feature.value != _property.literal();
+            } else if (_nodeName == "PropertyIsLessThan") {
+                matches = feature.value < _property.literal();
+            } else if (_nodeName == "PropertyIsGreaterThan") {
+                matches = feature.value > _property.literal();
+            } else if (_nodeName == "PropertyIsLessThanOrEqualTo") {
+                matches = feature.value <= _property.literal();
+            } else if (_nodeName == "PropertyIsGreaterThanOrEqualTo") {
+                matches = feature.value >= _property.literal();
+            } else {
+                matches = true; // all other Properties not implemented
             }
         }
+
         if (!found) {
             return true;
         } else {

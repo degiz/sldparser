@@ -25,6 +25,7 @@ bool Filter::check(Feature& feature)
             return false;
         }
     }
+    return true;
 }
 
 void Filter::_parseNode()

@@ -28,6 +28,7 @@ public:
     double minScaleDenominator();
     double maxScaleDenominator();
     std::vector<Symbolizer>& Symbolizers();
+    bool hasElseFilter();
     
     bool check(Feature&);
     bool check(std::vector<Feature>&);
@@ -39,6 +40,8 @@ private:
     double _minScaleDenominator;
     double _maxScaleDenominator;
     Filter _filter;
+    bool _hasElseFilter;
+    
     std::vector<Symbolizer> _symbolizers;
     std::vector<std::string> _symbolizerTypes;
    

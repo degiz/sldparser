@@ -43,6 +43,31 @@ double Symbolizer::width()
     return _width;
 }
 
+std::string Symbolizer::linecap()
+{
+    return _linecap;
+}
+
+std::string Symbolizer::linejoin()
+{
+    return _linejoin;
+}
+
+double Symbolizer::dashoffset()
+{
+    return _dashoffset;
+}
+
+unsigned int Symbolizer::size()
+{
+    return _size;
+}
+
+unsigned int Symbolizer::rotation()
+{
+    return _rotation;
+}
+
 void Symbolizer::_parseNode()
 {
     if (_nodeName == "PolygonSymbolizer") {

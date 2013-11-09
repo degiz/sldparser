@@ -5,6 +5,7 @@
 namespace automap {
     
 Rule::Rule(XmlIterator iterator) :
+    _hasElseFilter(false),
     SLDNode(iterator)
 {
     _parseNode();
@@ -27,7 +28,6 @@ bool Rule::check(std::vector<Feature>& features)
             return false;
         }
     }
-
     return true;
 }
 
@@ -59,6 +59,11 @@ double Rule::maxScaleDenominator()
 std::vector<Symbolizer>& Rule::Symbolizers()
 {
     return  _symbolizers;
+}
+
+bool Rule::hasElseFilter()
+{
+    return _hasElseFilter;
 }
 
 void Rule::_parseNode()
@@ -94,6 +99,12 @@ void Rule::_parseNode()
             Filter filter(_iterator);
             _filter = filter;
             
+        } else if (_iterator.name() == "ElseFilter") {
+            
+            Filter filter(_iterator);
+            _filter = filter;
+            _hasElseFilter = true;
+        
         } else  if (Symbolizer::isSymbolizer(_iterator.name())) {
         
             Symbolizer symbolizer(_iterator);
