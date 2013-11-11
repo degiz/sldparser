@@ -38,6 +38,16 @@ std::string Symbolizer::color()
     return _color;
 }
 
+std::string Symbolizer::WellKnownName()
+{
+    return _wellKnownName;
+}
+
+double Symbolizer::opacity()
+{
+    return _opacity;
+}
+
 double Symbolizer::width()
 {
     return _width;
@@ -122,11 +132,11 @@ void Symbolizer::_parsePoint()
             XmlIterator it(_iterator);
             it.moveToChildNode();
             
-            while (it.moveToChildNode()) {
+            while (it.moveToNextNode()) {
                 
                 if (it.name() == "Mark") {
                     
-                     Mark mark(_iterator);
+                     Mark mark(it);
                      _wellKnownName = mark.name();
                      _fill = mark.fill();
                      _mark = mark;
@@ -142,10 +152,11 @@ void Symbolizer::_parsePoint()
                 }
             }
             
-            CssCollection css(_iterator);
-            _graphic = css;
+            //CssCollection css(_iterator);
+            //_graphic = css;
         }
     }
+    _prepareFill();
 }
 
 void Symbolizer::_parseText()
@@ -182,6 +193,10 @@ void Symbolizer::_prepareStroke()
         
             _dashoffset = _stroke.csselements()[i].value().asDouble();
             
+        } else if (_stroke.csselements()[i].name() == "stroke-opacity") {
+        
+            _opacity = _stroke.csselements()[i].value().asDouble();
+            
         }
     }
 }
@@ -195,7 +210,7 @@ void Symbolizer::_prepareFill()
         
             _color = _fill.csselements()[i].value().asString();
             
-        } else if (_fill.csselements()[i].name() == "stroke-opacity") {
+        } else if (_fill.csselements()[i].name() == "fill-opacity") {
         
             _opacity = _fill.csselements()[i].value().asDouble();
             

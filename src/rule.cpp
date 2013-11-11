@@ -106,7 +106,7 @@ void Rule::_parseNode()
             _hasElseFilter = true;
         
         } else  if (Symbolizer::isSymbolizer(_iterator.name())) {
-        
+            
             Symbolizer symbolizer(_iterator);
             _symbolizers.push_back(symbolizer);
             

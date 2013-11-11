@@ -40,6 +40,7 @@
           <PolygonSymbolizer>
             <Fill>
               <CssParameter name="fill">#636363</CssParameter>
+              <CssParameter name="fill-opacity">0.2</CssParameter>
             </Fill>
           </PolygonSymbolizer>
         </Rule>
@@ -60,6 +61,7 @@
           <PolygonSymbolizer>
             <Fill>
               <CssParameter name="fill">#969696</CssParameter>
+              <CssParameter name="fill-opacity">0.5</CssParameter>
             </Fill>
           </PolygonSymbolizer>
         </Rule>
@@ -80,6 +82,7 @@
           <PolygonSymbolizer>
             <Fill>
               <CssParameter name="fill">#CCCCCC</CssParameter>
+              <CssParameter name="fill-opacity">0</CssParameter>
             </Fill>
           </PolygonSymbolizer>
         </Rule>
@@ -94,6 +97,7 @@
           <PolygonSymbolizer>
             <Fill>
               <CssParameter name="fill">#F7F7F7</CssParameter>
+              <CssParameter name="fill-opacity">1</CssParameter>
             </Fill>
           </PolygonSymbolizer>
         </Rule>
@@ -108,7 +112,11 @@
           <LineSymbolizer>
             <Stroke>
               <CssParameter name="stroke">#202020</CssParameter>
-              <CssParameter name="stroke-width">0.50</CssParameter>
+              <CssParameter name="stroke-width">0.5</CssParameter>
+              <CssParameter name="stroke-linecap">round</CssParameter>
+              <CssParameter name="stroke-linejoin">miter</CssParameter>
+              <CssParameter name="stroke-dashoffset">1</CssParameter>
+              <CssParameter name="stroke-opacity">0.5</CssParameter> 
             </Stroke>
           </LineSymbolizer>
         </Rule>
@@ -122,12 +130,18 @@
               </ogc:PropertyIsEqualTo>
             </ogc:Not>
           </ogc:Filter> 
-          <LineSymbolizer>
-            <Stroke>
-              <CssParameter name="stroke">#202020</CssParameter>
-              <CssParameter name="stroke-width">0.50</CssParameter>
-            </Stroke>
-          </LineSymbolizer>
+          <PointSymbolizer>
+           <Graphic>
+            <Mark>
+             <WellKnownName>circle</WellKnownName>
+             <Fill>
+              <CssParameter name="fill">#FF0000</CssParameter>
+             </Fill>
+            </Mark>
+            <Size>6</Size>
+            <Rotation>10</Rotation>
+           </Graphic>         
+          </PointSymbolizer>
         </Rule>
         <Rule>
           <Title>Complex</Title>
@@ -170,9 +184,15 @@
           <LineSymbolizer>
             <Stroke>
               <CssParameter name="stroke">#202020</CssParameter>
-              <CssParameter name="stroke-width">0.50</CssParameter>
+              <CssParameter name="stroke-width">0.5</CssParameter>
             </Stroke>
           </LineSymbolizer>
+          <PolygonSymbolizer>
+            <Fill>
+              <CssParameter name="fill">#F7F7F7</CssParameter>
+              <CssParameter name="fill-opacity">1</CssParameter>
+            </Fill>
+          </PolygonSymbolizer>
         </Rule>
         <Rule>
          <Title>Else</Title>
@@ -185,7 +205,7 @@
          <LineSymbolizer>
            <Stroke>
              <CssParameter name="stroke">#202020</CssParameter>
-             <CssParameter name="stroke-width">0.50</CssParameter>
+             <CssParameter name="stroke-width">0.5</CssParameter>
            </Stroke>
          </LineSymbolizer>
         </Rule>

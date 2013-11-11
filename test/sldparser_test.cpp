@@ -139,24 +139,28 @@ void SLDParserTest::checkSymbolizer()
     CPPUNIT_ASSERT(symbolizer0.size() == 1);
     CPPUNIT_ASSERT(symbolizer0[0].nodeName() == "PolygonSymbolizer");
     CPPUNIT_ASSERT(symbolizer0[0].color() == "#636363");
+    CPPUNIT_ASSERT(symbolizer0[0].opacity() == 0.2);
 
     std::vector<Symbolizer>& symbolizer1 = _p1->NamedLayers()[0].UserStyles()[0].FeatureStyleTypes()[0].Rules()[1].Symbolizers();
     
     CPPUNIT_ASSERT(symbolizer1.size() == 1);
     CPPUNIT_ASSERT(symbolizer1[0].nodeName() == "PolygonSymbolizer");
     CPPUNIT_ASSERT(symbolizer1[0].color() == "#969696");
+    CPPUNIT_ASSERT(symbolizer1[0].opacity() == 0.5);
     
     std::vector<Symbolizer>& symbolizer2 = _p1->NamedLayers()[0].UserStyles()[0].FeatureStyleTypes()[0].Rules()[2].Symbolizers();
     
     CPPUNIT_ASSERT(symbolizer2.size() == 1);
     CPPUNIT_ASSERT(symbolizer2[0].nodeName() == "PolygonSymbolizer");
     CPPUNIT_ASSERT(symbolizer2[0].color() == "#CCCCCC");
+    CPPUNIT_ASSERT(symbolizer2[0].opacity() == 0);
     
     std::vector<Symbolizer>& symbolizer3 = _p1->NamedLayers()[0].UserStyles()[0].FeatureStyleTypes()[0].Rules()[3].Symbolizers();
     
     CPPUNIT_ASSERT(symbolizer3.size() == 1);
     CPPUNIT_ASSERT(symbolizer3[0].nodeName() == "PolygonSymbolizer");
     CPPUNIT_ASSERT(symbolizer3[0].color() == "#F7F7F7");
+    CPPUNIT_ASSERT(symbolizer3[0].opacity() == 1);
     
     std::vector<Symbolizer>& symbolizer4 = _p1->NamedLayers()[0].UserStyles()[0].FeatureStyleTypes()[0].Rules()[4].Symbolizers();
     
@@ -164,6 +168,30 @@ void SLDParserTest::checkSymbolizer()
     CPPUNIT_ASSERT(symbolizer4[0].nodeName() == "LineSymbolizer");
     CPPUNIT_ASSERT(symbolizer4[0].color() == "#202020");
     CPPUNIT_ASSERT(symbolizer4[0].width() == 0.5);
+    CPPUNIT_ASSERT(symbolizer4[0].linecap() == "round");
+    CPPUNIT_ASSERT(symbolizer4[0].linejoin() == "miter");
+    CPPUNIT_ASSERT(symbolizer4[0].dashoffset() == 1);
+    CPPUNIT_ASSERT(symbolizer4[0].opacity() == 0.5);
+    
+    std::vector<Symbolizer>& symbolizer5 = _p1->NamedLayers()[0].UserStyles()[0].FeatureStyleTypes()[0].Rules()[5].Symbolizers();
+    
+    CPPUNIT_ASSERT(symbolizer5.size() == 1);
+    CPPUNIT_ASSERT(symbolizer5[0].nodeName() == "PointSymbolizer");
+    CPPUNIT_ASSERT(symbolizer5[0].color() == "#FF0000");
+    CPPUNIT_ASSERT(symbolizer5[0].WellKnownName() == "circle");
+    CPPUNIT_ASSERT(symbolizer5[0].size() == 6);
+    CPPUNIT_ASSERT(symbolizer5[0].rotation() == 10);
+    
+    std::vector<Symbolizer>& symbolizer6 = _p1->NamedLayers()[0].UserStyles()[0].FeatureStyleTypes()[0].Rules()[6].Symbolizers();
+    
+    CPPUNIT_ASSERT(symbolizer6.size() == 2);
+    CPPUNIT_ASSERT(symbolizer6[0].nodeName() == "LineSymbolizer");
+    CPPUNIT_ASSERT(symbolizer6[0].color() == "#202020");
+    CPPUNIT_ASSERT(symbolizer6[0].width() == 0.5);
+    CPPUNIT_ASSERT(symbolizer6[1].nodeName() == "PolygonSymbolizer");
+    CPPUNIT_ASSERT(symbolizer6[1].color() == "#F7F7F7");
+    CPPUNIT_ASSERT(symbolizer6[1].opacity() == 1);
+    
 }
 
 

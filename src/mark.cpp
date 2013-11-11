@@ -10,7 +10,7 @@ Mark::Mark()
 Mark::Mark(XmlIterator iterator) :
     SLDNode(iterator)
 {
-
+    _parseNode();
 }
 
 Mark::~Mark()
@@ -30,7 +30,7 @@ CssCollection Mark::fill()
 
 void Mark::_parseNode()
 {
-    while (_iterator.moveToChildNode()) {
+    while (_iterator.moveToNextNode()) {
         if (_iterator.name() == "WellKnownName") {
             _name = _iterator.value();
         } else if (_iterator.name() == "Fill") {
