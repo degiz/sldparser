@@ -12,7 +12,7 @@ public:
     CssCollection(XmlIterator);
     ~CssCollection();
     
-    std::vector<CssElement> csselements();
+    std::vector<CssElement> cssElements();
     
 private:
     void _parseNode();

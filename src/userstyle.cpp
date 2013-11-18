@@ -33,7 +33,7 @@ bool UserStyle::isDefault()
     return _isDefault;
 }
 
-std::vector<FeatureStyleType>& UserStyle::FeatureStyleTypes()
+std::vector<FeatureStyleType>& UserStyle::featureStyleTypes()
 {
     return _features;
 }

@@ -27,7 +27,7 @@ public:
     std::string abstract();
     double minScaleDenominator();
     double maxScaleDenominator();
-    std::vector<Symbolizer>& Symbolizers();
+    std::vector<Symbolizer>& symbolizers();
     bool hasElseFilter();
     
     bool check(Feature&);

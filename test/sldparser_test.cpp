@@ -30,9 +30,9 @@ void SLDParserTest::checkNoFile()
 
 void SLDParserTest::checkNamedLayer()
 {
-    CPPUNIT_ASSERT( _p1->NamedLayers().size() == 1 );
+    CPPUNIT_ASSERT( _p1->namedLayers().size() == 1 );
     
-    std::vector<NamedLayer>& namedLayers = _p1->NamedLayers();
+    std::vector<NamedLayer>& namedLayers = _p1->namedLayers();
     
     CPPUNIT_ASSERT(namedLayers[0].nodeName() == "NamedLayer");
     CPPUNIT_ASSERT(namedLayers[0].name() == "poptot");
@@ -41,9 +41,9 @@ void SLDParserTest::checkNamedLayer()
 
 void SLDParserTest::checkUserStyle()
 {
-    std::vector<UserStyle>& userStyles = _p1->NamedLayers()[0].UserStyles();
+    std::vector<UserStyle>& userStyles = _p1->namedLayers()[0].userStyles();
     
-    CPPUNIT_ASSERT( _p1->NamedLayers()[0].UserStyles().size() == 1 );
+    CPPUNIT_ASSERT( _p1->namedLayers()[0].userStyles().size() == 1 );
     
     CPPUNIT_ASSERT( userStyles[0].title() == "Population" );
     CPPUNIT_ASSERT( userStyles[0].abstract() == "A grayscale style showing the population numbers in a given geounit." );
@@ -51,7 +51,7 @@ void SLDParserTest::checkUserStyle()
 
 void SLDParserTest::checkFeatureTypeStyle()
 {
-    std::vector<FeatureStyleType>& featureTypeStyles= _p1->NamedLayers()[0].UserStyles()[0].FeatureStyleTypes();
+    std::vector<FeatureStyleType>& featureTypeStyles= _p1->namedLayers()[0].userStyles()[0].featureStyleTypes();
     
     CPPUNIT_ASSERT( featureTypeStyles.size() == 1 );
     
@@ -59,7 +59,7 @@ void SLDParserTest::checkFeatureTypeStyle()
 
 void SLDParserTest::checkRule()
 {
-    std::vector<Rule>& rules = _p1->NamedLayers()[0].UserStyles()[0].FeatureStyleTypes()[0].Rules();
+    std::vector<Rule>& rules = _p1->namedLayers()[0].userStyles()[0].featureStyleTypes()[0].rules();
     
     CPPUNIT_ASSERT(rules.size() == 8);
     CPPUNIT_ASSERT(rules[0].title() == ">= 345 AND < 880");
@@ -75,7 +75,7 @@ void SLDParserTest::checkRule()
 
 void SLDParserTest::checkFilter()
 {
-    std::vector<Rule>& rules = _p1->NamedLayers()[0].UserStyles()[0].FeatureStyleTypes()[0].Rules();
+    std::vector<Rule>& rules = _p1->namedLayers()[0].userStyles()[0].featureStyleTypes()[0].rules();
     
     Feature f1("number", Variant((unsigned int)880));
     Feature f2("number", Variant((unsigned int)345));
@@ -134,35 +134,35 @@ void SLDParserTest::checkFilter()
 
 void SLDParserTest::checkSymbolizer()
 {
-    std::vector<Symbolizer>& symbolizer0 = _p1->NamedLayers()[0].UserStyles()[0].FeatureStyleTypes()[0].Rules()[0].Symbolizers();
+    std::vector<Symbolizer>& symbolizer0 = _p1->namedLayers()[0].userStyles()[0].featureStyleTypes()[0].rules()[0].symbolizers();
     
     CPPUNIT_ASSERT(symbolizer0.size() == 1);
     CPPUNIT_ASSERT(symbolizer0[0].nodeName() == "PolygonSymbolizer");
     CPPUNIT_ASSERT(symbolizer0[0].color() == "#636363");
     CPPUNIT_ASSERT(symbolizer0[0].opacity() == 0.2);
 
-    std::vector<Symbolizer>& symbolizer1 = _p1->NamedLayers()[0].UserStyles()[0].FeatureStyleTypes()[0].Rules()[1].Symbolizers();
+    std::vector<Symbolizer>& symbolizer1 = _p1->namedLayers()[0].userStyles()[0].featureStyleTypes()[0].rules()[1].symbolizers();
     
     CPPUNIT_ASSERT(symbolizer1.size() == 1);
     CPPUNIT_ASSERT(symbolizer1[0].nodeName() == "PolygonSymbolizer");
     CPPUNIT_ASSERT(symbolizer1[0].color() == "#969696");
     CPPUNIT_ASSERT(symbolizer1[0].opacity() == 0.5);
     
-    std::vector<Symbolizer>& symbolizer2 = _p1->NamedLayers()[0].UserStyles()[0].FeatureStyleTypes()[0].Rules()[2].Symbolizers();
+    std::vector<Symbolizer>& symbolizer2 = _p1->namedLayers()[0].userStyles()[0].featureStyleTypes()[0].rules()[2].symbolizers();
     
     CPPUNIT_ASSERT(symbolizer2.size() == 1);
     CPPUNIT_ASSERT(symbolizer2[0].nodeName() == "PolygonSymbolizer");
     CPPUNIT_ASSERT(symbolizer2[0].color() == "#CCCCCC");
     CPPUNIT_ASSERT(symbolizer2[0].opacity() == 0);
     
-    std::vector<Symbolizer>& symbolizer3 = _p1->NamedLayers()[0].UserStyles()[0].FeatureStyleTypes()[0].Rules()[3].Symbolizers();
+    std::vector<Symbolizer>& symbolizer3 = _p1->namedLayers()[0].userStyles()[0].featureStyleTypes()[0].rules()[3].symbolizers();
     
     CPPUNIT_ASSERT(symbolizer3.size() == 1);
     CPPUNIT_ASSERT(symbolizer3[0].nodeName() == "PolygonSymbolizer");
     CPPUNIT_ASSERT(symbolizer3[0].color() == "#F7F7F7");
     CPPUNIT_ASSERT(symbolizer3[0].opacity() == 1);
     
-    std::vector<Symbolizer>& symbolizer4 = _p1->NamedLayers()[0].UserStyles()[0].FeatureStyleTypes()[0].Rules()[4].Symbolizers();
+    std::vector<Symbolizer>& symbolizer4 = _p1->namedLayers()[0].userStyles()[0].featureStyleTypes()[0].rules()[4].symbolizers();
     
     CPPUNIT_ASSERT(symbolizer4.size() == 1);
     CPPUNIT_ASSERT(symbolizer4[0].nodeName() == "LineSymbolizer");
@@ -173,16 +173,16 @@ void SLDParserTest::checkSymbolizer()
     CPPUNIT_ASSERT(symbolizer4[0].dashoffset() == 1);
     CPPUNIT_ASSERT(symbolizer4[0].opacity() == 0.5);
     
-    std::vector<Symbolizer>& symbolizer5 = _p1->NamedLayers()[0].UserStyles()[0].FeatureStyleTypes()[0].Rules()[5].Symbolizers();
+    std::vector<Symbolizer>& symbolizer5 = _p1->namedLayers()[0].userStyles()[0].featureStyleTypes()[0].rules()[5].symbolizers();
     
     CPPUNIT_ASSERT(symbolizer5.size() == 1);
     CPPUNIT_ASSERT(symbolizer5[0].nodeName() == "PointSymbolizer");
     CPPUNIT_ASSERT(symbolizer5[0].color() == "#FF0000");
-    CPPUNIT_ASSERT(symbolizer5[0].WellKnownName() == "circle");
+    CPPUNIT_ASSERT(symbolizer5[0].wellKnownName() == "circle");
     CPPUNIT_ASSERT(symbolizer5[0].size() == 6);
     CPPUNIT_ASSERT(symbolizer5[0].rotation() == 10);
     
-    std::vector<Symbolizer>& symbolizer6 = _p1->NamedLayers()[0].UserStyles()[0].FeatureStyleTypes()[0].Rules()[6].Symbolizers();
+    std::vector<Symbolizer>& symbolizer6 = _p1->namedLayers()[0].userStyles()[0].featureStyleTypes()[0].rules()[6].symbolizers();
     
     CPPUNIT_ASSERT(symbolizer6.size() == 2);
     CPPUNIT_ASSERT(symbolizer6[0].nodeName() == "LineSymbolizer");

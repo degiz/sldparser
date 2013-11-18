@@ -15,7 +15,7 @@ public:
     ~SLDParser();
     
     bool loaded();
-    std::vector<NamedLayer>& NamedLayers();
+    std::vector<NamedLayer>& namedLayers();
 private:
     std::string _fileName;
     bool _loaded;

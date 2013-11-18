@@ -16,7 +16,7 @@ public:
     std::string abstract();
     std::string featureTypeName();
     std::vector<std::string> semanticTypeIdentifiers();
-    std::vector<Rule>& Rules();
+    std::vector<Rule>& rules();
     
 private:
     std::string _name;

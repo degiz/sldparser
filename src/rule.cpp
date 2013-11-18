@@ -56,7 +56,7 @@ double Rule::maxScaleDenominator()
     return _maxScaleDenominator;
 }
 
-std::vector<Symbolizer>& Rule::Symbolizers()
+std::vector<Symbolizer>& Rule::symbolizers()
 {
     return  _symbolizers;
 }

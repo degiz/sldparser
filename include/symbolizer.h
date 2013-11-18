@@ -26,7 +26,7 @@ public:
     SymbolizerTypes type();
     
     std::string color();
-    std::string WellKnownName();
+    std::string wellKnownName();
     double opacity();
     double width();
     std::string linecap();

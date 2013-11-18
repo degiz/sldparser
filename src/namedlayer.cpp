@@ -18,7 +18,7 @@ std::string NamedLayer::name()
     return _layerName;
 }
 
-std::vector<UserStyle>& NamedLayer::UserStyles()
+std::vector<UserStyle>& NamedLayer::userStyles()
 {
     return _userStyles;
 }

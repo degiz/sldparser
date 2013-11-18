@@ -53,7 +53,7 @@ bool SLDParser::_parseNamedLayers()
     return _namedLayers.size() > 0;
 }
 
-std::vector<NamedLayer>& SLDParser::NamedLayers()
+std::vector<NamedLayer>& SLDParser::namedLayers()
 {
     return _namedLayers;
 }

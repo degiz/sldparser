@@ -17,7 +17,7 @@ public:
     ~NamedLayer();
     
     std::string name();
-    std::vector<UserStyle>& UserStyles();
+    std::vector<UserStyle>& userStyles();
 
 private:
     std::string _layerName;

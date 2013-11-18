@@ -52,8 +52,8 @@ private:
 
 struct Feature {
     Feature(std::string inName, Variant inValue) :
-        name(inName),
-        value(inValue)
+    name(inName),
+    value(inValue)
     {}
     std::string name;
     Variant value;

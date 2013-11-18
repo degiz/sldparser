@@ -29,7 +29,7 @@ void CssCollection::_parseNode()
     }
 }
 
-std::vector<CssElement> CssCollection::csselements()
+std::vector<CssElement> CssCollection::cssElements()
 {
     return _csselements;
 }

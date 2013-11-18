@@ -38,7 +38,7 @@ std::string Symbolizer::color()
     return _color;
 }
 
-std::string Symbolizer::WellKnownName()
+std::string Symbolizer::wellKnownName()
 {
     return _wellKnownName;
 }
@@ -171,31 +171,31 @@ void Symbolizer::_parseRaster()
 
 void Symbolizer::_prepareStroke()
 {
-    for (size_t i = 0; i < _stroke.csselements().size(); i++) {
+    for (size_t i = 0; i < _stroke.cssElements().size(); i++) {
     
-        if (_stroke.csselements()[i].name() == "stroke") {
+        if (_stroke.cssElements()[i].name() == "stroke") {
         
-            _color = _stroke.csselements()[i].value().asString();
+            _color = _stroke.cssElements()[i].value().asString();
             
-        } else if (_stroke.csselements()[i].name() == "stroke-width") {
+        } else if (_stroke.cssElements()[i].name() == "stroke-width") {
         
-            _width = _stroke.csselements()[i].value().asDouble();
+            _width = _stroke.cssElements()[i].value().asDouble();
             
-        } else if (_stroke.csselements()[i].name() == "stroke-linecap") {
+        } else if (_stroke.cssElements()[i].name() == "stroke-linecap") {
         
-            _linecap = _stroke.csselements()[i].value().asString();
+            _linecap = _stroke.cssElements()[i].value().asString();
             
-        } else if (_stroke.csselements()[i].name() == "stroke-linejoin") {
+        } else if (_stroke.cssElements()[i].name() == "stroke-linejoin") {
         
-            _linejoin = _stroke.csselements()[i].value().asString();
+            _linejoin = _stroke.cssElements()[i].value().asString();
             
-        } else if (_stroke.csselements()[i].name() == "stroke-dashoffset") {
+        } else if (_stroke.cssElements()[i].name() == "stroke-dashoffset") {
         
-            _dashoffset = _stroke.csselements()[i].value().asDouble();
+            _dashoffset = _stroke.cssElements()[i].value().asDouble();
             
-        } else if (_stroke.csselements()[i].name() == "stroke-opacity") {
+        } else if (_stroke.cssElements()[i].name() == "stroke-opacity") {
         
-            _opacity = _stroke.csselements()[i].value().asDouble();
+            _opacity = _stroke.cssElements()[i].value().asDouble();
             
         }
     }
@@ -204,15 +204,15 @@ void Symbolizer::_prepareStroke()
 void Symbolizer::_prepareFill()
 {
     
-    for (size_t i = 0; i < _fill.csselements().size(); i++) {
+    for (size_t i = 0; i < _fill.cssElements().size(); i++) {
     
-        if (_fill.csselements()[i].name() == "fill") {
+        if (_fill.cssElements()[i].name() == "fill") {
         
-            _color = _fill.csselements()[i].value().asString();
+            _color = _fill.cssElements()[i].value().asString();
             
-        } else if (_fill.csselements()[i].name() == "fill-opacity") {
+        } else if (_fill.cssElements()[i].name() == "fill-opacity") {
         
-            _opacity = _fill.csselements()[i].value().asDouble();
+            _opacity = _fill.cssElements()[i].value().asDouble();
             
         }
     }

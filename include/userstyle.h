@@ -19,7 +19,7 @@ public:
     std::string title();
     std::string abstract();
     bool isDefault();
-    std::vector<FeatureStyleType>& FeatureStyleTypes();
+    std::vector<FeatureStyleType>& featureStyleTypes();
     
     
 private:
