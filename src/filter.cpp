@@ -18,7 +18,13 @@ Filter::~Filter()
     
 }
 
-bool Filter::check(Feature& feature)
+template<class T>
+bool Filter::check(Feature<T> feature)
+{
+    return _operation.check(feature);
+}
+
+bool Filter::check(FeatureProperty& feature)
 {
     for (auto i = _operations.begin(); i != _operations.end(); i++) {
         if (!(*i).check(feature)) {

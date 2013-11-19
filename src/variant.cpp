@@ -18,6 +18,21 @@ Variant::Variant(std::string value)
     _createValue<std::string>(value);
 }
 
+Variant Variant::fromUInt(unsigned int value)
+{
+    return Variant((unsigned int)value);
+}
+
+Variant Variant::fromString(std::string value)
+{
+    return Variant((std::string)value);
+}
+
+Variant Variant::fromDouble(double value)
+{
+    return Variant((double)value);
+}
+
 Variant::~Variant()
 {
     _clear();

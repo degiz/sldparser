@@ -3,6 +3,7 @@
 
 #include "sldnode.h"
 #include "filter.h"
+#include "feature.h"
 #include "symbolizer.h"
 #include "variant.h"
 
@@ -30,8 +31,11 @@ public:
     std::vector<Symbolizer>& symbolizers();
     bool hasElseFilter();
     
-    bool check(Feature&);
-    bool check(std::vector<Feature>&);
+    bool check(FeatureProperty&);
+    bool check(std::vector<FeatureProperty>&);
+    
+    template<class T>
+    bool check(Feature<T> feature);
     
 private:
     std::string _name;

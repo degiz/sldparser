@@ -8,10 +8,12 @@ FIND_PACKAGE(LibXml2)
 
 ADD_SUBDIRECTORY(test)
 
-INCLUDE_DIRECTORIES("include" ${LIBXML2_INCLUDE_DIR} )
+INCLUDE_DIRECTORIES("include" "include/filters" ${LIBXML2_INCLUDE_DIR} )
 
 FILE(GLOB HEADERS "include/*.h")
+FILE(GLOB FILTERS_H "include/filters/*.h")
 FILE(GLOB SOURCES "src/*.cpp")
+FILE(GLOB FILTERS_SRC "src/filters/*.cpp")
 
 ADD_LIBRARY(automapd_sld ${HEADERS} ${SOURCES} )
 TARGET_LINK_LIBRARIES(automapd_sld ${LIBXML2_LIBRARIES} )

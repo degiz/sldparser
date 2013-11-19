@@ -1,4 +1,11 @@
-    #include "operation.h"
+#include "operation.h"
+
+#include "andoperation.h"
+#include "oroperation.h"
+#include "notoperation.h"
+#include "equaloperation.h"
+#include "greateroperation.h"
+#include "lessoperation.h"
 
 namespace automap {
 
@@ -21,14 +28,8 @@ const char* Operation::_logicOpsType[] = {
 };
 
 Operation::Operation(XmlIterator iterator) :
-    SLDNode(iterator),
-    _isLogicalOperation(false)
+    SLDNode(iterator)
 {
-    /*if (isCompareOperation(_nodeName)) {
-        _iterator.moveToParentNode();
-        _iterator.moveToPreviousNode();
-    }*/
-    
     _parseNode();
 }
 
@@ -37,65 +38,15 @@ Operation::~Operation()
 
 }
 
-Property Operation::property()
+template<class T>
+bool Operation::check(Feature<T> feature)
 {
-    return _property;
+    
 }
 
-bool Operation::check(Feature& feature)
+bool Operation::check(FeatureProperty& feature)
 {
-    if (_isLogicalOperation) {
-        if (_nodeName == "And") {
-            for (auto i = _operations.begin(); i != _operations.end(); i++) {
-                if (!(*i).check(feature)) {
-                    return false;
-                }
-            }
-            return true;
-        } else if (_nodeName == "Or") {
-            for (auto i = _operations.begin(); i != _operations.end(); i++) {
-                if ((*i).check(feature)) {
-                    return true;
-                }
-            }
-            return false;
-        } else if (_nodeName == "Not") {
-            return !_operations[0].check(feature);
-        }
-    } else {
-        bool found, matches = false;
-
-        if (_property.name() == feature.name) {
-            found = true;
-            if (_nodeName == "PropertyIsEqualTo") {
-                matches = feature.value == _property.literal();
-            } else if (_nodeName == "PropertyIsNotEqualTo") {
-                matches = feature.value != _property.literal();
-            } else if (_nodeName == "PropertyIsLessThan") {
-                matches = feature.value < _property.literal();
-            } else if (_nodeName == "PropertyIsGreaterThan") {
-                matches = feature.value > _property.literal();
-            } else if (_nodeName == "PropertyIsLessThanOrEqualTo") {
-                matches = feature.value <= _property.literal();
-            } else if (_nodeName == "PropertyIsGreaterThanOrEqualTo") {
-                matches = feature.value >= _property.literal();
-            } else {
-                matches = true; // all other Properties not implemented
-            }
-        }
-
-        if (!found) {
-            return true;
-        } else {
-            return matches;
-        }
-    }
-    return false;
-}
-
-bool Operation::isLogicalOperation()
-{
-    return _isLogicalOperation;
+    
 }
 
 bool Operation::isLogicOperation(std::string name)
@@ -123,18 +74,36 @@ void Operation::_parseNode()
     
     while (it.moveToNextNode()) {
         
-        if (isCompareOperation(_nodeName)) {
-        
-            Property property(it);
-            _property = property;
-            break;
+        Operation* operation = NULL;
+
+        if (_nodeName == "And") {
+         
+            operation = new AndOperation(_iterator);
             
-        } else if (isLogicOperation(_nodeName)) {
+        } else if (_nodeName == "Or") {
+            
+            operation = new OrOperation(_iterator);
+            
+        } else if (_nodeName == "Not") {
+            
+            operation = new NotOperation(_iterator);
+            
+        } else if (_nodeName == "PropertyIsEqualTo") {
+            
+            operation = new EqualOperation(_iterator);
+            
+        } else if (_nodeName == "PropertyIsLessThan") {
+            
+            operation = new LessOperation(_iterator);
+            
+        } else if (_nodeName == "PropertyIsGreaterThan") {
+            
+            operation = new GreaterOperation(_iterator);
+            
+        }
         
-            _isLogicalOperation = true;
-            Operation operation(it);
+        if (operation) {
             _operations.push_back(operation);
-            
         }
     }
 }

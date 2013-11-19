@@ -16,12 +16,12 @@ Rule::~Rule()
     
 }
 
-bool Rule::check(Feature& feature)
+bool Rule::check(FeatureProperty& feature)
 {
     return _filter.check(feature);
 }
 
-bool Rule::check(std::vector<Feature>& features)
+bool Rule::check(std::vector<FeatureProperty>& features)
 {
     for (auto i = features.begin(); i != features.end(); i++) {
         if (!check(*i)) {
@@ -29,6 +29,12 @@ bool Rule::check(std::vector<Feature>& features)
         }
     }
     return true;
+}
+
+template<class T>
+bool Rule::check(Feature<T> feature)
+{
+    return _filter.check(feature);
 }
 
 std::string Rule::name()

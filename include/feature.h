@@ -1,22 +1,31 @@
 #ifndef FEATURE_H
 #define FEATURE_H
 
+#include "variant.h"
+
 #include <string>
+#include <map>
+
+namespace automap {
 
 template<class T>
 class Feature {
-    Feature(std::map<std::string, T> features) {
-        _features = features;
+    Feature(T feature) {
+        _feature = feature;
     }
-    virtual T getFieldValue<T>(Feature<T> object, std::string fieldName) = 0;
-private:
-    std::map<std::string, T> _features;
+    virtual Variant getFieldValue(std::string fieldName) = 0;
+protected:
+    T _feature;
 };
 
 template<class T>
-class String_Feature : public Feature<std::string> {
-    virtual T getFieldValue<T>(Feature<T> object, std::string fieldName);
+class FeatureMap : public Feature<std::map<std::string, std::string> > {
+    Variant getFieldValue(std::string fieldName) {
+        std::string value = _feature.find(fieldName);
+        return Variant::fromString(value);
+    }
 };
 
+}
 
 #endif // FEATURE_H

@@ -77,17 +77,17 @@ void SLDParserTest::checkFilter()
 {
     std::vector<Rule>& rules = _p1->namedLayers()[0].userStyles()[0].featureStyleTypes()[0].rules();
     
-    Feature f1("number", Variant((unsigned int)880));
-    Feature f2("number", Variant((unsigned int)345));
-    Feature f3("number", Variant((unsigned int)879));
-    Feature f4("number", Variant((unsigned int)346));
-    Feature f5("number", Variant((unsigned int)344));
-    Feature f6("number", Variant((unsigned int)881));
-    Feature f7("number", Variant((unsigned int)401));
-    Feature f8("number", Variant((unsigned int)599));
-    Feature f9("number", Variant((unsigned int)500));
-    Feature f10("number", Variant((unsigned int)550));
-    Feature f11("number", Variant((unsigned int)501));
+    FeatureProperty f1("number", Variant((unsigned int)880));
+    FeatureProperty f2("number", Variant((unsigned int)345));
+    FeatureProperty f3("number", Variant((unsigned int)879));
+    FeatureProperty f4("number", Variant((unsigned int)346));
+    FeatureProperty f5("number", Variant((unsigned int)344));
+    FeatureProperty f6("number", Variant((unsigned int)881));
+    FeatureProperty f7("number", Variant((unsigned int)401));
+    FeatureProperty f8("number", Variant((unsigned int)599));
+    FeatureProperty f9("number", Variant((unsigned int)500));
+    FeatureProperty f10("number", Variant((unsigned int)550));
+    FeatureProperty f11("number", Variant((unsigned int)501));
     
     CPPUNIT_ASSERT(rules[0].check(f1) == false);
     CPPUNIT_ASSERT(rules[0].check(f2) == true);

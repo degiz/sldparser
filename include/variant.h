@@ -35,6 +35,10 @@ public:
     double asDouble();
     std::string asString();
     
+    static Variant fromUInt(unsigned int);
+    static Variant fromString(std::string);
+    static Variant fromDouble(double);
+    
 private:
     VariantType _type;
     template<class T> T* _castTypeByPointer(void*);
@@ -50,8 +54,8 @@ private:
     void* _value;
 };
 
-struct Feature {
-    Feature(std::string inName, Variant inValue) :
+struct FeatureProperty {
+    FeatureProperty(std::string inName, Variant inValue) :
     name(inName),
     value(inValue)
     {}

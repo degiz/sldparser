@@ -1,6 +1,7 @@
 #ifndef OPERATION_H
 #define OPERATION_H
 
+#include "feature.h"
 #include "sldnode.h"
 #include "property.h"
 #include "variant.h"
@@ -23,20 +24,17 @@ public:
     static bool isLogicOperation(std::string);
     static bool isCompareOperation(std::string);
     
-    bool isLogicalOperation();
-    bool check(Feature&);
+    bool check(FeatureProperty&);
     
-    Property property();
+    template<class T>
+    bool check(Feature<T> feature);
    
 private:
     static const char* _binaryComparisonOpType[];
     static const char* _logicOpsType[];
-    bool _isLogicalOperation;
-    std::vector<Operation> _operations;
-    Property _property;
+    std::vector<Operation*> _operations;
 
     void _parseNode();
-    
 };
     
 };

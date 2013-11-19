@@ -1,6 +1,7 @@
 #ifndef FILTER_H
 #define FILTER_H
 
+#include "feature.h"
 #include "sldnode.h"
 #include "operation.h"
 #include "variant.h"
@@ -17,15 +18,15 @@ public:
     Filter(XmlIterator);
     ~Filter();
     
-    bool check(Feature&);
+    bool check(FeatureProperty&);
+    
+    template<class T>
+    bool check(Feature<T> feature);
     
 private:
     void _parseNode();
-    std::vector<Operation> _operations;
+    Operation _operation;
     std::string _featureId;
-    
-    std::vector<std::string> _binaryCamparations;
-    std::vector<std::string> _logicOperations;
 };
     
 };
