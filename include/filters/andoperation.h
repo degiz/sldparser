@@ -8,8 +8,7 @@ namespace automap {
 
 class AndOperation : public LogicOperation {
 public:
-    template<class T>
-    bool check(Feature<T>);
+    bool check(IFeature&);
 };
 
 }

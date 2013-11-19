@@ -2,15 +2,13 @@
 #define EQUALOPERATION_H
 
 #include "compareoperation.h"
-#include "feature.h"
 
 namespace automap {
 
 class EqualOperation : public CompareOperation {
 public:
-    template<class T>
-    bool check(Feature<T>);
-
+    EqualOperation(std::string, Variant);
+    bool check(IFeature&);
 };
 
 }

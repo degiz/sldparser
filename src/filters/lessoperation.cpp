@@ -2,13 +2,17 @@
 
 namespace automap {
     
-template<class T>
-bool LessOperation::check(Feature<T> feature)
+LessOperation::LessOperation(std::string name, Variant value) :
+    CompareOperation(name, value)
 {
-    std::string name = _property.name();
-    Variant value = feature.getFieldValue(name);
+
+}
+
+bool LessOperation::check(IFeature& feature)
+{
+    Variant value = feature.getFieldValue(_name);
     if (value.asString() != "") {
-        return value < _property.literal();
+        return value < _value;
     }
 }
     

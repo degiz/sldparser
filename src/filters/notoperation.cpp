@@ -2,10 +2,9 @@
 
 namespace automap {
     
-template<class T>
-bool NotOperation::check(Feature<T> feature)
+bool NotOperation::check(IFeature& feature)
 {
-    return !_operations[0].check(feature);
+    return !_operations[0]->check(feature);
 }
     
 }

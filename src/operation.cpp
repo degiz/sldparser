@@ -1,4 +1,4 @@
-#include "operation.h"
+ #include "operation.h"
 
 #include "andoperation.h"
 #include "oroperation.h"
@@ -6,6 +6,8 @@
 #include "equaloperation.h"
 #include "greateroperation.h"
 #include "lessoperation.h"
+#include "greaterorequaloperation.h"
+#include "lessorequaloperation.h"
 
 namespace automap {
 
@@ -27,21 +29,35 @@ const char* Operation::_logicOpsType[] = {
     "Not"
 };
 
+Operation::Operation()
+{
+
+}
+
 Operation::Operation(XmlIterator iterator) :
-    SLDNode(iterator)
+    SLDNode(iterator),
+    _filter(NULL)
+{
+    _parseNode();
+}
+
+Operation::Operation(XmlIterator iterator, FilterOperation* filter) :
+    SLDNode(iterator),
+    _filter(filter)
 {
     _parseNode();
 }
 
 Operation::~Operation()
 {
-
+    if (_filter) {
+        delete _filter;
+    }
 }
 
-template<class T>
-bool Operation::check(Feature<T> feature)
+bool Operation::check(IFeature& feature)
 {
-    
+    return _filter->check(feature);
 }
 
 bool Operation::check(FeatureProperty& feature)
@@ -73,38 +89,68 @@ void Operation::_parseNode()
     }
     
     while (it.moveToNextNode()) {
+    
+        FilterOperation* filter = NULL;
+    
+        if (isCompareOperation(_nodeName)) {
+            
+            Property property(it);
+            _property = property;
+            
+            if (_nodeName == "PropertyIsEqualTo") {
+            
+                filter = new EqualOperation(_property.name(), _property.literal());
+            
+            } else if (_nodeName == "PropertyIsLessThan") {
+                
+                filter = new LessOperation(_property.name(), _property.literal());
+                
+            } else if (_nodeName == "PropertyIsGreaterThan") {
+                
+                filter = new GreaterOperation(_property.name(), _property.literal());
+                
+            } else if (_nodeName == "PropertyIsGreaterThanOrEqualTo") {
+                
+                filter = new GreaterOrEqualOperation(_property.name(), _property.literal());
+                
+            } else if (_nodeName == "PropertyIsLessThanOrEqualTo") {
+                
+                filter = new LessOrEqualOperation(_property.name(), _property.literal());
+                
+            }
+            
+            if (_filter) {
+                reinterpret_cast<LogicOperation*>(_filter)->add(filter);
+            } else {
+                _filter = filter;
+            }
+            
+            break;
+            
+        } else if (isLogicOperation(_nodeName)) {
         
-        Operation* operation = NULL;
-
-        if (_nodeName == "And") {
-         
-            operation = new AndOperation(_iterator);
+            if (_nodeName == "And") {
+             
+                filter = new AndOperation();
+                
+            } else if (_nodeName == "Or") {
+                
+                filter = new OrOperation();
+                
+            } else if (_nodeName == "Not") {
+                
+                filter = new NotOperation();
+                
+            }
             
-        } else if (_nodeName == "Or") {
-            
-            operation = new OrOperation(_iterator);
-            
-        } else if (_nodeName == "Not") {
-            
-            operation = new NotOperation(_iterator);
-            
-        } else if (_nodeName == "PropertyIsEqualTo") {
-            
-            operation = new EqualOperation(_iterator);
-            
-        } else if (_nodeName == "PropertyIsLessThan") {
-            
-            operation = new LessOperation(_iterator);
-            
-        } else if (_nodeName == "PropertyIsGreaterThan") {
-            
-            operation = new GreaterOperation(_iterator);
-            
-        }
-        
-        if (operation) {
+             Operation operation(it, filter);
             _operations.push_back(operation);
+            
+            _filter = filter;
+        
         }
+
+        
     }
 }
 

@@ -2,11 +2,10 @@
 
 namespace automap {
 
-template<class T>
-bool AndOperation::check(Feature<T> feature)
+bool AndOperation::check(IFeature& feature)
 {
-    for (auto i = _operations.begin(); i != _operations.end(); i++) {
-        if (!(*i).check(feature)) {
+    for (auto it = _operations.begin(); it != _operations.end(); it++) {
+        if (!(*it)->check(feature)) {
             return false;
         }
     }

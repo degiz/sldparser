@@ -31,8 +31,7 @@ bool Rule::check(std::vector<FeatureProperty>& features)
     return true;
 }
 
-template<class T>
-bool Rule::check(Feature<T> feature)
+bool Rule::check(IFeature& feature)
 {
     return _filter.check(feature);
 }

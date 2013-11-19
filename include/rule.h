@@ -33,9 +33,7 @@ public:
     
     bool check(FeatureProperty&);
     bool check(std::vector<FeatureProperty>&);
-    
-    template<class T>
-    bool check(Feature<T> feature);
+    bool check(IFeature&);
     
 private:
     std::string _name;
@@ -52,6 +50,6 @@ private:
     void _parseNode();
 };
 
-};
+}
 
 #endif // RULE_H

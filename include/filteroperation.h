@@ -13,9 +13,7 @@ public:
     FilterOperation();
     ~FilterOperation();
     
-    virtual bool check(Feature*);
-    
-    virtual bool check(std::string&, Variant&) = 0;
+    virtual bool check(IFeature&) = 0;
 };
 
 }

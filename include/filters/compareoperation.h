@@ -1,19 +1,20 @@
-#ifndef LOGIC_OPERATION_H
-#define LOGIC_OPERATION_H
+#ifndef COMPAREOPERATION_H
+#define COMPAREOPERATION_H
 
-#include "operation.h"
-#include "feature.h"
+#include "filteroperation.h"
 
 #include <vector>
 
 namespace automap {
     
-class CompareOperation : Operation {
-    
+class CompareOperation : public FilterOperation {
+public:
+    CompareOperation(std::string, Variant);
 protected:
-    Property _property;
+    std::string _name;
+    Variant _value;
 };
-    
+
 }
 
-#endif // LOGIC_OPERATION_H
+#endif // COMPAREOPERATION_H

@@ -73,6 +73,7 @@ void SLDParserTest::checkRule()
     
 }
 
+/*
 void SLDParserTest::checkFilter()
 {
     std::vector<Rule>& rules = _p1->namedLayers()[0].userStyles()[0].featureStyleTypes()[0].rules();
@@ -130,6 +131,68 @@ void SLDParserTest::checkFilter()
     CPPUNIT_ASSERT(rules[0].hasElseFilter() == false);
     CPPUNIT_ASSERT(rules[7].hasElseFilter() == true);
     
+}
+*/
+
+void SLDParserTest::checkFilter()
+{
+    std::vector<Rule>& rules = _p1->namedLayers()[0].userStyles()[0].featureStyleTypes()[0].rules();
+    
+    FeatureTest f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11;
+    
+    f1.add("number", "880");
+    f2.add("number", "345");
+    f3.add("number", "879");
+    f4.add("number", "346");
+    f5.add("number", "344");
+    f6.add("number", "881");
+    f7.add("number", "401");
+    f8.add("number", "599");
+    f9.add("number", "500");
+    f10.add("number", "550");
+    f11.add("number", "501");
+    
+    CPPUNIT_ASSERT(rules[0].check(f1) == false);
+    CPPUNIT_ASSERT(rules[0].check(f2) == true);
+    CPPUNIT_ASSERT(rules[0].check(f3) == true);
+    CPPUNIT_ASSERT(rules[0].check(f4) == true);
+    CPPUNIT_ASSERT(rules[0].check(f5) == false);
+    
+    CPPUNIT_ASSERT(rules[1].check(f1) == true);
+    CPPUNIT_ASSERT(rules[1].check(f2) == false);
+    CPPUNIT_ASSERT(rules[1].check(f3) == true);
+    CPPUNIT_ASSERT(rules[1].check(f4) == true);
+    CPPUNIT_ASSERT(rules[1].check(f5) == false);
+    
+    CPPUNIT_ASSERT(rules[2].check(f1) == false);
+    CPPUNIT_ASSERT(rules[2].check(f2) == false);
+    CPPUNIT_ASSERT(rules[2].check(f3) == false);
+    CPPUNIT_ASSERT(rules[2].check(f4) == false);
+    CPPUNIT_ASSERT(rules[2].check(f5) == true);
+    CPPUNIT_ASSERT(rules[2].check(f6) == true);
+    
+    CPPUNIT_ASSERT(rules[3].check(f1) == false);
+    CPPUNIT_ASSERT(rules[3].check(f2) == true);
+   
+    CPPUNIT_ASSERT(rules[4].check(f1) == true);
+    CPPUNIT_ASSERT(rules[4].check(f2) == false);
+    
+    CPPUNIT_ASSERT(rules[5].check(f1) == true);
+    CPPUNIT_ASSERT(rules[5].check(f2) == false);
+    
+    CPPUNIT_ASSERT(rules[6].check(f1) == false);
+    CPPUNIT_ASSERT(rules[6].check(f2) == false);
+    CPPUNIT_ASSERT(rules[6].check(f3) == false);
+    CPPUNIT_ASSERT(rules[6].check(f4) == false);
+    CPPUNIT_ASSERT(rules[6].check(f7) == true);
+    CPPUNIT_ASSERT(rules[6].check(f8) == true);
+    CPPUNIT_ASSERT(rules[6].check(f9) == true);
+    CPPUNIT_ASSERT(rules[6].check(f10) == false);
+    CPPUNIT_ASSERT(rules[6].check(f11) == true);
+    
+    CPPUNIT_ASSERT(rules[0].hasElseFilter() == false);
+    CPPUNIT_ASSERT(rules[7].hasElseFilter() == true);
+
 }
 
 void SLDParserTest::checkSymbolizer()

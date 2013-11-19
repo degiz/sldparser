@@ -2,7 +2,7 @@
 
 namespace automap {
 
-void LogicOperation::add(Operation operation)
+void LogicOperation::add(FilterOperation* operation)
 {
     _operations.push_back(operation);
 }

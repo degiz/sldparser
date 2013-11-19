@@ -20,8 +20,7 @@ public:
     
     bool check(FeatureProperty&);
     
-    template<class T>
-    bool check(Feature<T> feature);
+    bool check(IFeature&);
     
 private:
     void _parseNode();

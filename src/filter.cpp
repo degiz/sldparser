@@ -18,20 +18,14 @@ Filter::~Filter()
     
 }
 
-template<class T>
-bool Filter::check(Feature<T> feature)
+bool Filter::check(IFeature& feature)
 {
     return _operation.check(feature);
 }
 
 bool Filter::check(FeatureProperty& feature)
 {
-    for (auto i = _operations.begin(); i != _operations.end(); i++) {
-        if (!(*i).check(feature)) {
-            return false;
-        }
-    }
-    return true;
+    return _operation.check(feature);
 }
 
 void Filter::_parseNode()
@@ -44,7 +38,7 @@ void Filter::_parseNode()
         if (Operation::isCompareOperation(nodeName) || Operation::isLogicOperation(nodeName)) {
         
             Operation operation(_iterator);
-            _operations.push_back(operation);
+            _operation = operation;
             
         } else if (_iterator.name() =="FeatureId") {
         

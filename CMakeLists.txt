@@ -15,5 +15,5 @@ FILE(GLOB FILTERS_H "include/filters/*.h")
 FILE(GLOB SOURCES "src/*.cpp")
 FILE(GLOB FILTERS_SRC "src/filters/*.cpp")
 
-ADD_LIBRARY(automapd_sld ${HEADERS} ${SOURCES} )
+ADD_LIBRARY(automapd_sld ${HEADERS} ${FILTERS_H} ${SOURCES} ${FILTERS_SRC})
 TARGET_LINK_LIBRARIES(automapd_sld ${LIBXML2_LIBRARIES} )

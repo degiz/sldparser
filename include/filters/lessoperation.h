@@ -8,8 +8,8 @@ namespace automap {
     
 class LessOperation : public CompareOperation {
 public:
-    template<class T>
-    bool check(Feature<T>);
+    LessOperation(std::string, Variant);
+    bool check(IFeature&);
     
 };
     

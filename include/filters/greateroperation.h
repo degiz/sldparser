@@ -1,5 +1,5 @@
-#ifndef EQUALOPERATION_H
-#define EQUALOPERATION_H
+#ifndef GREATEROPERATION_H
+#define GREATEROPERATION_H
 
 #include "compareoperation.h"
 #include "feature.h"
@@ -8,11 +8,10 @@ namespace automap {
     
 class GreaterOperation : public CompareOperation {
 public:
-    template<class T>
-    bool check(Feature<T>);
-    
+    GreaterOperation(std::string, Variant);
+    bool check(IFeature&);
 };
     
 }
 
-#endif // EQUALOPERATION_H
+#endif // GREATEROPERATION_H

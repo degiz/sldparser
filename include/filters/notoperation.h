@@ -1,5 +1,5 @@
-#ifndef ANDOPERATION_H
-#define ANDOPERATION_H
+#ifndef NOTOPERATION_H
+#define NOTOPERATION_H
 
 #include "logicoperation.h"
 #include "feature.h"
@@ -8,11 +8,10 @@ namespace automap {
     
 class NotOperation : public LogicOperation {
 public:
-    template<class T>
-    bool check(Feature<T>);
+    bool check(IFeature&);
 };
 
 }
 
-#endif // ANDOPERATION_H
+#endif // NOTOPERATION_H
 

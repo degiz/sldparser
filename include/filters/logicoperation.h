@@ -1,20 +1,20 @@
 #ifndef LOGIC_OPERATION_H
 #define LOGIC_OPERATION_H
 
-#include "operation.h"
+#include "filteroperation.h"
 #include "feature.h"
 
 #include <vector>
 
 namespace automap {
 
-class LogicOperation : public Operation {
+class LogicOperation : public FilterOperation {
 public:
 
-    void add(Operation);
+    void add(FilterOperation*);
     
 protected:
-    std::vector<Operation> _operations;
+    std::vector<FilterOperation*> _operations;
 };
 
 }
