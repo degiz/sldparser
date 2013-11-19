@@ -9,7 +9,7 @@ namespace automap {
 class LessOperation : public CompareOperation {
 public:
     LessOperation(std::string, Variant);
-    bool check(IFeature&);
+    bool check(IFeature&) const;
     
 };
     

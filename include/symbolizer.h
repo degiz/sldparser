@@ -23,22 +23,21 @@ public:
     Symbolizer(XmlIterator);
     ~Symbolizer();
     
-    SymbolizerTypes type();
+    SymbolizerTypes type() const;
     
-    std::string color();
-    std::string wellKnownName();
-    double opacity();
-    double width();
-    std::string linecap();
-    std::string linejoin();
-    double dashoffset();
-    unsigned int size();
-    unsigned int rotation();
+    std::string color() const;
+    std::string wellKnownName() const;
+    double opacity() const;
+    double width() const;
+    std::string linecap() const;
+    std::string linejoin() const;
+    double dashoffset() const;
+    unsigned int size() const;
+    unsigned int rotation() const;
     
     static bool isSymbolizer(std::string);
 private:
 
-    std::vector<std::string> _symbolizerTypes;
     CssCollection _fill;
     CssCollection _stroke;
     CssCollection _graphic;
@@ -56,7 +55,7 @@ private:
     
     SymbolizerTypes _type;
     
-    static const char* _symbolizerType[];
+    static std::vector<std::string> _symbolizerTypes;
     
     void _parseNode();
     void _parsePolygon();

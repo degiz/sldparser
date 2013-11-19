@@ -11,12 +11,12 @@ public:
     FeatureStyleType(XmlIterator);
     ~FeatureStyleType();
     
-    std::string name();
-    std::string title();
-    std::string abstract();
-    std::string featureTypeName();
-    std::vector<std::string> semanticTypeIdentifiers();
-    std::vector<Rule>& rules();
+    std::string name() const;
+    std::string title() const;
+    std::string abstract() const;
+    std::string featureTypeName() const;
+    std::vector<std::string> semanticTypeIdentifiers() const;
+    const std::vector<Rule>& rules() const;
     
 private:
     std::string _name;

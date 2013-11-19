@@ -16,8 +16,8 @@ public:
     NamedLayer(XmlIterator);
     ~NamedLayer();
     
-    std::string name();
-    std::vector<UserStyle>& userStyles();
+    const std::string name() const;
+    const std::vector<UserStyle>& userStyles() const;
 
 private:
     std::string _layerName;

@@ -8,7 +8,7 @@ EqualOperation::EqualOperation(std::string name, Variant value) :
 
 }
 
-bool EqualOperation::check(IFeature& feature)
+bool EqualOperation::check(IFeature& feature) const
 {
     Variant value = feature.getFieldValue(_name);
     if (value.asString() != "") {

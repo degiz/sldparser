@@ -2,7 +2,7 @@
 
 namespace automap {
 
-const char* Symbolizer::_symbolizerType[] = {
+std::vector<std::string> Symbolizer::_symbolizerTypes = {
     "PolygonSymbolizer",
     "LineSymbolizer",
     "PointSymbolizer",
@@ -23,57 +23,55 @@ Symbolizer::~Symbolizer()
 
 bool Symbolizer::isSymbolizer(std::string nodeName)
 {
-    static std::vector<std::string> symbolizers;
-    symbolizers.assign(&_symbolizerType[0], &_symbolizerType[0] + NUM_OF_SYMBOLIZERS);
-    return std::find(symbolizers.begin(), symbolizers.end(), nodeName) != symbolizers.end();
+    return std::find(_symbolizerTypes.begin(), _symbolizerTypes.end(), nodeName) != _symbolizerTypes.end();
 }
 
-SymbolizerTypes Symbolizer::type()
+SymbolizerTypes Symbolizer::type() const
 {
     return _type;
 }
 
-std::string Symbolizer::color()
+std::string Symbolizer::color() const
 {
     return _color;
 }
 
-std::string Symbolizer::wellKnownName()
+std::string Symbolizer::wellKnownName() const
 {
     return _wellKnownName;
 }
 
-double Symbolizer::opacity()
+double Symbolizer::opacity() const
 {
     return _opacity;
 }
 
-double Symbolizer::width()
+double Symbolizer::width() const
 {
     return _width;
 }
 
-std::string Symbolizer::linecap()
+std::string Symbolizer::linecap() const
 {
     return _linecap;
 }
 
-std::string Symbolizer::linejoin()
+std::string Symbolizer::linejoin() const
 {
     return _linejoin;
 }
 
-double Symbolizer::dashoffset()
+double Symbolizer::dashoffset() const
 {
     return _dashoffset;
 }
 
-unsigned int Symbolizer::size()
+unsigned int Symbolizer::size() const
 {
     return _size;
 }
 
-unsigned int Symbolizer::rotation()
+unsigned int Symbolizer::rotation() const
 {
     return _rotation;
 }

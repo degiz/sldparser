@@ -15,11 +15,11 @@ public:
     UserStyle(XmlIterator);
     ~UserStyle();
     
-    std::string name();
-    std::string title();
-    std::string abstract();
-    bool isDefault();
-    std::vector<FeatureStyleType>& featureStyleTypes();
+    std::string name() const;
+    std::string title() const;
+    std::string abstract() const;
+    bool isDefault() const;
+    const std::vector<FeatureStyleType>& featureStyleTypes() const;
     
     
 private:

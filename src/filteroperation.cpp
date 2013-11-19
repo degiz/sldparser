@@ -12,4 +12,9 @@ FilterOperation::~FilterOperation()
 
 }
 
+bool FilterOperation::check(IFeature&) const
+{
+
+}
+
 }

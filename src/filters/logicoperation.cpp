@@ -2,7 +2,7 @@
 
 namespace automap {
 
-void LogicOperation::add(FilterOperation* operation)
+void LogicOperation::add(std::shared_ptr<FilterOperation> operation)
 {
     _operations.push_back(operation);
 }

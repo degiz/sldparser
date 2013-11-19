@@ -13,32 +13,32 @@ FeatureStyleType::~FeatureStyleType()
     
 }
 
-std::string FeatureStyleType::name()
+std::string FeatureStyleType::name() const
 {
     return _name;
 }
 
-std::string FeatureStyleType::title()
+std::string FeatureStyleType::title() const
 {
     return _title;
 }
 
-std::string FeatureStyleType::abstract()
+std::string FeatureStyleType::abstract() const
 {
     return _abstract;
 }
 
-std::string FeatureStyleType::featureTypeName()
+std::string FeatureStyleType::featureTypeName() const
 {
     return _featureTypeName;
 }
 
-std::vector<std::string> FeatureStyleType::semanticTypeIdentifiers()
+std::vector<std::string> FeatureStyleType::semanticTypeIdentifiers() const
 {
     return _semanticTypeIdentifiers;
 }
 
-std::vector<Rule>& FeatureStyleType::rules()
+const std::vector<Rule>& FeatureStyleType::rules() const
 {
     return _rules;
 }

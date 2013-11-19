@@ -10,6 +10,7 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <memory>
 
 namespace automap {
     
@@ -21,23 +22,24 @@ public:
     
     Operation();
     Operation(XmlIterator);
-    Operation(XmlIterator, FilterOperation*);
+    Operation(XmlIterator, std::shared_ptr<FilterOperation>);
     ~Operation();
     
     static bool isLogicOperation(std::string);
     static bool isCompareOperation(std::string);
     
-    bool check(FeatureProperty&);
+    bool check(FeatureProperty&) const;
     
-    bool check(IFeature&);
+    bool check(IFeature&) const;
    
 private:
-    static const char* _binaryComparisonOpType[];
-    static const char* _logicOpsType[];
+    static std::vector<std::string> _binaryComparisonOpType;
+    static std::vector<std::string> _logicOpsType;
     
     std::vector<Operation> _operations;
-    FilterOperation* _filter;
+    std::shared_ptr<FilterOperation> _filter;
     Property _property;
+    bool _hasParentFilter;
 
     void _parseNode();
 };

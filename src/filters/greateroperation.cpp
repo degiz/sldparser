@@ -8,7 +8,7 @@ GreaterOperation::GreaterOperation(std::string name, Variant value) :
 
 }
     
-bool GreaterOperation::check(IFeature& feature)
+bool GreaterOperation::check(IFeature& feature) const
 {
     Variant value = feature.getFieldValue(_name);
     if (value.asString() != "") {

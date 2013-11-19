@@ -8,7 +8,7 @@ GreaterOrEqualOperation::GreaterOrEqualOperation(std::string name, Variant value
 
 }
 
-bool GreaterOrEqualOperation::check(IFeature& feature)
+bool GreaterOrEqualOperation::check(IFeature& feature) const
 {
     Variant value = feature.getFieldValue(_name);
     if (value.asString() != "") {

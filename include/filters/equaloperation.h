@@ -8,7 +8,7 @@ namespace automap {
 class EqualOperation : public CompareOperation {
 public:
     EqualOperation(std::string, Variant);
-    bool check(IFeature&);
+    bool check(IFeature&) const;
 };
 
 }

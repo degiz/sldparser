@@ -23,17 +23,17 @@ public:
     Rule(XmlIterator);
     ~Rule();
     
-    std::string name();
-    std::string title();
-    std::string abstract();
-    double minScaleDenominator();
-    double maxScaleDenominator();
-    std::vector<Symbolizer>& symbolizers();
-    bool hasElseFilter();
+    std::string name() const;
+    std::string title() const;
+    std::string abstract() const;
+    double minScaleDenominator() const;
+    double maxScaleDenominator() const;
+    const std::vector<Symbolizer>& symbolizers() const;
+    bool hasElseFilter() const;
     
-    bool check(FeatureProperty&);
-    bool check(std::vector<FeatureProperty>&);
-    bool check(IFeature&);
+    bool check(FeatureProperty&) const;
+    bool check(std::vector<FeatureProperty>&) const;
+    bool check(IFeature&) const;
     
 private:
     std::string _name;

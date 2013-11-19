@@ -18,9 +18,9 @@ public:
     Filter(XmlIterator);
     ~Filter();
     
-    bool check(FeatureProperty&);
+    bool check(FeatureProperty&) const;
     
-    bool check(IFeature&);
+    bool check(IFeature&) const;
     
 private:
     void _parseNode();

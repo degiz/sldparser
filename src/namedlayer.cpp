@@ -13,12 +13,12 @@ NamedLayer::~NamedLayer()
     
 }
 
-std::string NamedLayer::name()
+const std::string NamedLayer::name() const
 {
     return _layerName;
 }
 
-std::vector<UserStyle>& NamedLayer::userStyles()
+const std::vector<UserStyle>& NamedLayer::userStyles() const
 {
     return _userStyles;
 }

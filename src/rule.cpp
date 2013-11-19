@@ -16,12 +16,12 @@ Rule::~Rule()
     
 }
 
-bool Rule::check(FeatureProperty& feature)
+bool Rule::check(FeatureProperty& feature) const
 {
     return _filter.check(feature);
 }
 
-bool Rule::check(std::vector<FeatureProperty>& features)
+bool Rule::check(std::vector<FeatureProperty>& features) const
 {
     for (auto i = features.begin(); i != features.end(); i++) {
         if (!check(*i)) {
@@ -31,42 +31,42 @@ bool Rule::check(std::vector<FeatureProperty>& features)
     return true;
 }
 
-bool Rule::check(IFeature& feature)
+bool Rule::check(IFeature& feature) const
 {
     return _filter.check(feature);
 }
 
-std::string Rule::name()
+std::string Rule::name() const
 {
     return _name;
 }
 
-std::string Rule::title()
+std::string Rule::title() const
 {
     return _title;
 }
 
-std::string Rule::abstract()
+std::string Rule::abstract() const
 {
     return _abstract;
 }
 
-double Rule::minScaleDenominator()
+double Rule::minScaleDenominator() const
 {
     return _minScaleDenominator;
 }
 
-double Rule::maxScaleDenominator()
+double Rule::maxScaleDenominator() const
 {
     return _maxScaleDenominator;
 }
 
-std::vector<Symbolizer>& Rule::symbolizers()
+const std::vector<Symbolizer>& Rule::symbolizers() const
 {
     return  _symbolizers;
 }
 
-bool Rule::hasElseFilter()
+bool Rule::hasElseFilter() const
 {
     return _hasElseFilter;
 }

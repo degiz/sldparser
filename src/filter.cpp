@@ -18,12 +18,12 @@ Filter::~Filter()
     
 }
 
-bool Filter::check(IFeature& feature)
+bool Filter::check(IFeature& feature) const
 {
     return _operation.check(feature);
 }
 
-bool Filter::check(FeatureProperty& feature)
+bool Filter::check(FeatureProperty& feature) const
 {
     return _operation.check(feature);
 }

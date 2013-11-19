@@ -13,27 +13,27 @@ UserStyle::~UserStyle()
     
 }
 
-std::string UserStyle::name()
+std::string UserStyle::name() const
 {
     return _name;
 }
 
-std::string UserStyle::title()
+std::string UserStyle::title() const
 {
     return _title;
 }
 
-std::string UserStyle::abstract()
+std::string UserStyle::abstract() const
 {
     return _abstract;
 }
 
-bool UserStyle::isDefault()
+bool UserStyle::isDefault() const
 {
     return _isDefault;
 }
 
-std::vector<FeatureStyleType>& UserStyle::featureStyleTypes()
+const std::vector<FeatureStyleType>& UserStyle::featureStyleTypes() const
 {
     return _features;
 }

@@ -9,7 +9,7 @@ namespace automap {
 class GreaterOperation : public CompareOperation {
 public:
     GreaterOperation(std::string, Variant);
-    bool check(IFeature&);
+    bool check(IFeature&) const;
 };
     
 }

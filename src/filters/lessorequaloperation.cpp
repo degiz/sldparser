@@ -8,7 +8,7 @@ LessOrEqualOperation::LessOrEqualOperation(std::string name, Variant value) :
 
 }
     
-bool LessOrEqualOperation::check(IFeature& feature)
+bool LessOrEqualOperation::check(IFeature& feature) const
 {
     Variant value = feature.getFieldValue(_name);
     if (value.asString() != "") {

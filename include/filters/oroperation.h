@@ -8,7 +8,7 @@ namespace automap {
     
 class OrOperation : public LogicOperation {
 public:
-    bool check(IFeature&);
+    bool check(IFeature&) const;
 };
 
 }

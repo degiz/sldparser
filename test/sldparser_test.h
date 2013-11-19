@@ -39,7 +39,7 @@ class SLDParserTest : public CPPUNIT_NS::TestCase {
     CPPUNIT_TEST( checkUserStyle );
     CPPUNIT_TEST( checkFeatureTypeStyle );
     CPPUNIT_TEST( checkRule );
-    //CPPUNIT_TEST( checkFilter );
+    CPPUNIT_TEST( checkFilter );
     
     CPPUNIT_TEST( checkSymbolizer );
     CPPUNIT_TEST_SUITE_END();

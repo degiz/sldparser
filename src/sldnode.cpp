@@ -20,7 +20,7 @@ SLDNode::~SLDNode()
     
 }
 
-std::string SLDNode::nodeName()
+std::string SLDNode::nodeName() const
 {
     return _nodeName;
 }

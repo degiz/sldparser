@@ -13,7 +13,7 @@ public:
     FilterOperation();
     ~FilterOperation();
     
-    virtual bool check(IFeature&) = 0;
+    virtual bool check(IFeature&) const;
 };
 
 }

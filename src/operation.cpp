@@ -4,6 +4,7 @@
 #include "oroperation.h"
 #include "notoperation.h"
 #include "equaloperation.h"
+#include "notequaloperation.h"
 #include "greateroperation.h"
 #include "lessoperation.h"
 #include "greaterorequaloperation.h"
@@ -11,7 +12,13 @@
 
 namespace automap {
 
-const char* Operation::_binaryComparisonOpType[] = {
+std::vector<std::string> Operation::_logicOpsType = {
+    "And",
+    "Or",
+    "Not"
+};
+
+std::vector<std::string> Operation::_binaryComparisonOpType = {
     "PropertyIsEqualTo",
     "PropertyIsNotEqualTo",
     "PropertyIsLessThan",
@@ -23,12 +30,6 @@ const char* Operation::_binaryComparisonOpType[] = {
     "PropertyIsBetween"
 };
 
-const char* Operation::_logicOpsType[] = {
-    "And",
-    "Or",
-    "Not"
-};
-
 Operation::Operation()
 {
 
@@ -36,47 +37,47 @@ Operation::Operation()
 
 Operation::Operation(XmlIterator iterator) :
     SLDNode(iterator),
-    _filter(NULL)
+    _filter(NULL),
+    _hasParentFilter(false)
 {
     _parseNode();
 }
 
-Operation::Operation(XmlIterator iterator, FilterOperation* filter) :
+Operation::Operation(XmlIterator iterator, std::shared_ptr<FilterOperation> filter) :
     SLDNode(iterator),
-    _filter(filter)
+    _filter(filter),
+    _hasParentFilter(true)
 {
     _parseNode();
 }
 
 Operation::~Operation()
 {
+
+}
+
+bool Operation::check(IFeature& feature) const
+{
     if (_filter) {
-        delete _filter;
+        return _filter->check(feature);
+    } else {
+        return true;
     }
 }
 
-bool Operation::check(IFeature& feature)
-{
-    return _filter->check(feature);
-}
-
-bool Operation::check(FeatureProperty& feature)
+bool Operation::check(FeatureProperty& feature) const
 {
     
 }
 
 bool Operation::isLogicOperation(std::string name)
 {
-    static std::vector<std::string> logicOperations;
-    logicOperations.assign(&_logicOpsType[0], &_logicOpsType[0] + NUM_OF_LOGIC_OPERATIONS);
-    return std::find(logicOperations.begin(), logicOperations.end(), name) != logicOperations.end();
+    return std::find(_logicOpsType.begin(), _logicOpsType.end(), name) != _logicOpsType.end();
 }
 
 bool Operation::isCompareOperation(std::string name)
 {
-    static std::vector<std::string> compareOperations;
-    compareOperations.assign(&_binaryComparisonOpType[0], &_binaryComparisonOpType[0] + NUM_OF_COMPARE_OPERATIONS);
-    return std::find(compareOperations.begin(), compareOperations.end(), name) != compareOperations.end();
+    return std::find(_binaryComparisonOpType.begin(), _binaryComparisonOpType.end(), name) != _binaryComparisonOpType.end();
 }
 
 void Operation::_parseNode()
@@ -90,7 +91,7 @@ void Operation::_parseNode()
     
     while (it.moveToNextNode()) {
     
-        FilterOperation* filter = NULL;
+        std::shared_ptr<FilterOperation> filter;
     
         if (isCompareOperation(_nodeName)) {
             
@@ -99,28 +100,32 @@ void Operation::_parseNode()
             
             if (_nodeName == "PropertyIsEqualTo") {
             
-                filter = new EqualOperation(_property.name(), _property.literal());
+                filter.reset(new EqualOperation(_property.name(), _property.literal()));
             
+            } else if (_nodeName == "PropertyIsNotEqualTo") {
+                
+                filter.reset(new NotEqualOperation(_property.name(), _property.literal()));
+                
             } else if (_nodeName == "PropertyIsLessThan") {
                 
-                filter = new LessOperation(_property.name(), _property.literal());
+                filter.reset(new LessOperation(_property.name(), _property.literal()));
                 
             } else if (_nodeName == "PropertyIsGreaterThan") {
                 
-                filter = new GreaterOperation(_property.name(), _property.literal());
+                filter.reset(new GreaterOperation(_property.name(), _property.literal()));
                 
             } else if (_nodeName == "PropertyIsGreaterThanOrEqualTo") {
                 
-                filter = new GreaterOrEqualOperation(_property.name(), _property.literal());
+                filter.reset(new GreaterOrEqualOperation(_property.name(), _property.literal()));
                 
             } else if (_nodeName == "PropertyIsLessThanOrEqualTo") {
                 
-                filter = new LessOrEqualOperation(_property.name(), _property.literal());
+                filter.reset(new LessOrEqualOperation(_property.name(), _property.literal()));
                 
             }
             
             if (_filter) {
-                reinterpret_cast<LogicOperation*>(_filter)->add(filter);
+                reinterpret_cast<LogicOperation*>(_filter.get())->add(filter);
             } else {
                 _filter = filter;
             }
@@ -129,24 +134,31 @@ void Operation::_parseNode()
             
         } else if (isLogicOperation(_nodeName)) {
         
-            if (_nodeName == "And") {
+            if (!_filter || _hasParentFilter) {
+            
+                if (_nodeName == "And") {
              
-                filter = new AndOperation();
+                    filter.reset(new AndOperation());
                 
-            } else if (_nodeName == "Or") {
+                } else if (_nodeName == "Or") {
+                    
+                    filter.reset(new OrOperation());
+                    
+                } else if (_nodeName == "Not") {
+                    
+                    filter.reset(new NotOperation());
+                    
+                }
                 
-                filter = new OrOperation();
+                if (_hasParentFilter) {
+                    reinterpret_cast<LogicOperation*>(_filter.get())->add(filter);
+                }
                 
-            } else if (_nodeName == "Not") {
-                
-                filter = new NotOperation();
-                
+                _filter = filter;
             }
             
-             Operation operation(it, filter);
+             Operation operation(it, _filter);
             _operations.push_back(operation);
-            
-            _filter = filter;
         
         }
 

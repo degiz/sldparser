@@ -2,7 +2,7 @@
 
 namespace automap {
 
-bool AndOperation::check(IFeature& feature)
+bool AndOperation::check(IFeature& feature) const
 {
     for (auto it = _operations.begin(); it != _operations.end(); it++) {
         if (!(*it)->check(feature)) {

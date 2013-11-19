@@ -13,7 +13,7 @@ public:
     SLDNode(XmlIterator);
     ~SLDNode();
     
-    std::string nodeName();
+    std::string nodeName() const;
     
 protected:
     std::string _nodeName;

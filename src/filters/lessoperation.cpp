@@ -8,7 +8,7 @@ LessOperation::LessOperation(std::string name, Variant value) :
 
 }
 
-bool LessOperation::check(IFeature& feature)
+bool LessOperation::check(IFeature& feature) const
 {
     Variant value = feature.getFieldValue(_name);
     if (value.asString() != "") {

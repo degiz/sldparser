@@ -5,16 +5,17 @@
 #include "feature.h"
 
 #include <vector>
+#include <memory>
 
 namespace automap {
 
 class LogicOperation : public FilterOperation {
 public:
 
-    void add(FilterOperation*);
+    void add(std::shared_ptr<FilterOperation>);
     
 protected:
-    std::vector<FilterOperation*> _operations;
+    std::vector<std::shared_ptr<FilterOperation> > _operations;
 };
 
 }
