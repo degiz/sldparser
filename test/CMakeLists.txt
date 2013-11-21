@@ -11,7 +11,6 @@ INCLUDE(cmake/FindCppUnit.cmake)
 FIND_PACKAGE(CppUnit)
 
 INCLUDE_DIRECTORIES(${CPPUNIT_INCLUDE_DIR} 
-					${LIBXML2_INCLUDE_DIR} 
 					"../include"
    				    )
 
