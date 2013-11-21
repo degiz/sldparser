@@ -1,33 +1,31 @@
-#ifndef NAMEDLAYER_H
-#define NAMEDLAYER_H
+#ifndef NAMED_LAYER_H
+#define NAMED_LAYER_H
 
-#include "sldnode.h"
 #include "userstyle.h"
 
+#include <memory>
 #include <vector>
-#include <map>
-#include <string>
-#include <iostream>
 
-namespace automap {
-    
-class NamedLayer :public SLDNode {
+namespace SldParser {
+
+class NamedLayerPrivate;
+class XmlIterator;
+
+class NamedLayer {
 public:
-    NamedLayer(XmlIterator);
+    explicit NamedLayer(XmlIterator iterator);
     ~NamedLayer();
+    
+    std::string nodeName() const;
+    
+    NamedLayer(const NamedLayer& other);
     
     const std::string name() const;
     const std::vector<UserStyle>& userStyles() const;
-
 private:
-    std::string _layerName;
-    std::vector<UserStyle> _userStyles;
-    
-    void _parseNode();
-    
-    
-};
-    
+    std::unique_ptr<NamedLayerPrivate> _p;
 };
 
-#endif // NAMEDLAYER_H
+}
+
+#endif // NAMED_LAYER_H

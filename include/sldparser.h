@@ -1,33 +1,30 @@
-#ifndef SLDPARSER_PRIVATE_H
-#define SLDPARSER_PRIVATE_H
+#ifndef SLDPARSER_H
+#define SLDPARSER_H
 
-#include "sldnode.h"
 #include "namedlayer.h"
-#include "xmliterator.h"
 
-#include <string>
+#include <memory>
 
-namespace automap {
-    
+namespace SldParser {
+
+class SLDParserPrivate;
+
 class SLDParser {
 public:
-    SLDParser(std::string);
+    explicit SLDParser(std::string fileName);
     ~SLDParser();
+    
+    SLDParser(const SLDParser&);
+    
     
     bool loaded();
     std::vector<NamedLayer>& namedLayers();
 private:
-    std::string _fileName;
-    bool _loaded;
-    xmlDoc* _document;
-    xmlNode* _rootElement;
-    std::vector<NamedLayer> _namedLayers;
-    
-    bool _openFile();
-    bool _parseFile();
-    bool _parseNamedLayers();
+    std::unique_ptr<SLDParserPrivate> _p;
 };
 
 }
 
-#endif // SLDPARSER_PRIVATE_H
+
+
+#endif // SLDPARSER_H

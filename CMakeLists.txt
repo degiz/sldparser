@@ -1,19 +1,25 @@
 cmake_minimum_required(VERSION 2.8)
-PROJECT(automapd_sld)
+PROJECT(sldparser)
 
 SET(SLD_PARSER_BIN_DIR ${CMAKE_CURRENT_BINARY_DIR})
 SET(SLD_PARSER_OUTPUT_NAME ${CMAKE_PROJECT_NAME})
 
 FIND_PACKAGE(LibXml2) 
-
+ 
 ADD_SUBDIRECTORY(test)
 
-INCLUDE_DIRECTORIES("include" "include/filters" ${LIBXML2_INCLUDE_DIR} )
+INCLUDE_DIRECTORIES("include" "src/include" "src/include/filters" ${LIBXML2_INCLUDE_DIR} )
 
-FILE(GLOB HEADERS "include/*.h")
-FILE(GLOB FILTERS_H "include/filters/*.h")
-FILE(GLOB SOURCES "src/*.cpp")
-FILE(GLOB FILTERS_SRC "src/filters/*.cpp")
+FILE(GLOB HEADERS "include/*.h" "src/include/*.h")
+FILE(GLOB FILTERS_H "src/include/filters/*.h")
+FILE(GLOB SOURCES "src/src/*.cpp")
+FILE(GLOB FILTERS_SRC "src/src/filters/*.cpp")
 
-ADD_LIBRARY(automapd_sld ${HEADERS} ${FILTERS_H} ${SOURCES} ${FILTERS_SRC})
-TARGET_LINK_LIBRARIES(automapd_sld ${LIBXML2_LIBRARIES} )
+source_group(Headers\\Parser FILES ${HEADERS})
+source_group(Headers\\Filters FILES ${FILTERS_H})
+
+source_group(Source\\Parser FILES ${SOURCES})
+source_group(Source\\Filters FILES ${FILTERS_SRC})
+
+ADD_LIBRARY(sldparser ${HEADERS} ${FILTERS_H} ${SOURCES} ${FILTERS_SRC})
+TARGET_LINK_LIBRARIES(sldparser ${LIBXML2_LIBRARIES} )

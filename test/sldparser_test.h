@@ -6,7 +6,7 @@
 #include "sldparser.h"
 #include "feature.h"
 
-using namespace automap;
+using namespace SldParser;
 using namespace std;
 
 const std::string no_file = " ";

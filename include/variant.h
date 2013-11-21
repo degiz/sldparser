@@ -1,9 +1,7 @@
 #ifndef VARIANT_H
 #define VARIANT_H
 
-#include <iostream>
-#include <string>
-#include <sstream>
+#include <memory>
 
 enum VariantType {
     UINT = 0,
@@ -11,6 +9,8 @@ enum VariantType {
     STRING,
     NONE
 };
+
+class VariantPrivate;
 
 class Variant {
 public:
@@ -40,27 +40,8 @@ public:
     static Variant fromDouble(double);
     
 private:
-    VariantType _type;
-    template<class T> T* _castTypeByPointer(void*);
-    template<class T> T* _castTypeByPointer();
-    template<class T> T _castTypeByValue();
-    template<class T> void _createValue(T);
-    template<class T> void _deleteValue();
-    template<class T> T _convertToIntegralType(VariantType);
-    std::string _convertToString();
-    void _swap(const Variant&);
-    void _clear();
-   
-    void* _value;
+    std::unique_ptr<VariantPrivate> _p;
+    
 };
 
-struct FeatureProperty {
-    FeatureProperty(std::string inName, Variant inValue) :
-    name(inName),
-    value(inValue)
-    {}
-    std::string name;
-    Variant value;
-};
-
-#endif
+#endif // VARIANT_H

@@ -1,15 +1,24 @@
-#ifndef FEATURESTYLETYPE_H
-#define FEATURESTYLETYPE_H
+#ifndef FEATURE_STYLE_TYPE_H
+#define FEATURE_STYLE_TYPE_H
 
-#include "sldnode.h"
+#include <memory>
+#include <vector>
+
 #include "rule.h"
 
-namespace automap {
+namespace SldParser {
+
+class FeatureStyleTypePrivate;
+class XmlIterator;
     
-class FeatureStyleType : public SLDNode {
+class FeatureStyleType {
 public:
-    FeatureStyleType(XmlIterator);
+    explicit FeatureStyleType(XmlIterator iterator);
     ~FeatureStyleType();
+    
+    FeatureStyleType(const FeatureStyleType&);
+    
+    std::string nodeName() const;
     
     std::string name() const;
     std::string title() const;
@@ -19,16 +28,9 @@ public:
     const std::vector<Rule>& rules() const;
     
 private:
-    std::string _name;
-    std::string _title;
-    std::string _abstract;
-    std::string _featureTypeName;
-    std::vector<std::string> _semanticTypeIdentifiers;
-    std::vector<Rule> _rules;
-
-    void _parseNode();
+    std::unique_ptr<FeatureStyleTypePrivate> _p;
 };
     
 };
 
-#endif // FEATURESTYLETYPE_H
+#endif // FEATURE_STYLE_TYPE_H

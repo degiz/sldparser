@@ -1,30 +1,31 @@
 #ifndef SYMBOLIZER_H
 #define SYMBOLIZER_H
 
-#include "sldnode.h"
-#include "csscollection.h"
-#include "mark.h"
+#include <memory>
 
-namespace automap {
+namespace SldParser {
 
-enum SymbolizerTypes {
+enum class SymbolizerTypes: unsigned int {
         PolygonSymbolizer = 0,
         PointSymbolizer,
         TextSymbolizer,
         RasterSymbolizer,
         LineSymbolizer
 };
-    
-class Symbolizer : public SLDNode {
-public:
-    
-    #define NUM_OF_SYMBOLIZERS 5
 
-    Symbolizer(XmlIterator);
+class SymbolizerPrivate;
+class XmlIterator;
+    
+class Symbolizer {
+public:
+    explicit Symbolizer(XmlIterator iterator);
     ~Symbolizer();
     
-    SymbolizerTypes type() const;
+    Symbolizer(const Symbolizer&) ;
     
+    std::string nodeName() const;
+    
+    SymbolizerTypes type() const;
     std::string color() const;
     std::string wellKnownName() const;
     double opacity() const;
@@ -37,35 +38,7 @@ public:
     
     static bool isSymbolizer(std::string);
 private:
-
-    CssCollection _fill;
-    CssCollection _stroke;
-    CssCollection _graphic;
-    Mark _mark;
-    
-    std::string _color;
-    double _width;
-    std::string _linecap;
-    std::string _linejoin;
-    double _dashoffset;
-    double _opacity;
-    unsigned int _rotation;
-    unsigned int _size;
-    std::string _wellKnownName;
-    
-    SymbolizerTypes _type;
-    
-    static std::vector<std::string> _symbolizerTypes;
-    
-    void _parseNode();
-    void _parsePolygon();
-    void _parsePoint();
-    void _parseText();
-    void _parseRaster();
-    void _parseLine();
-    
-    void _prepareStroke();
-    void _prepareFill();
+    std::unique_ptr<SymbolizerPrivate> _p;
 };
     
 };
