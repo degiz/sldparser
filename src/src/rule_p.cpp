@@ -1,5 +1,7 @@
 #include "rule_p.h"
 
+#include "symbolizer_p.h"
+
 #include <sstream>
 
 namespace SldParser {
@@ -112,8 +114,9 @@ void RulePrivate::_parseNode()
         
         } else  if (Symbolizer::isSymbolizer(_iterator.name())) {
             
-            Symbolizer symbolizer(_iterator);
-            _symbolizers.push_back(symbolizer);
+            SymbolizerPrivate symbolizer(_iterator);
+            Symbolizer pub(symbolizer);
+            _symbolizers.push_back(pub);
             
         }
     }

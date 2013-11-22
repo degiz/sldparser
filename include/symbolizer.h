@@ -14,11 +14,10 @@ enum class SymbolizerTypes: unsigned int {
 };
 
 class SymbolizerPrivate;
-class XmlIterator;
     
 class Symbolizer {
 public:
-    explicit Symbolizer(XmlIterator iterator);
+    explicit Symbolizer(SymbolizerPrivate&);
     ~Symbolizer();
     
     Symbolizer(const Symbolizer&) ;

@@ -4,8 +4,8 @@
 
 namespace SldParser {
     
-Symbolizer::Symbolizer(XmlIterator iterator) :
-    _p(new SymbolizerPrivate(iterator))
+Symbolizer::Symbolizer(SymbolizerPrivate& p) :
+    _p(new SymbolizerPrivate(p))
 {
 
 }

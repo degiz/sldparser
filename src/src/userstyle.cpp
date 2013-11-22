@@ -4,8 +4,8 @@
 
 namespace SldParser {
 
-UserStyle::UserStyle(XmlIterator iterator) :
-    _p(new UserStylePrivate(iterator))
+UserStyle::UserStyle(UserStylePrivate& p) :
+    _p(new UserStylePrivate(p))
 {
 
 }

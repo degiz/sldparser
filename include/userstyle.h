@@ -9,11 +9,10 @@
 namespace SldParser {
 
 class UserStylePrivate;
-class XmlIterator;
 
 class UserStyle {
 public:
-    explicit UserStyle(XmlIterator iterator);
+    explicit UserStyle(UserStylePrivate&);
     ~UserStyle();
     
     UserStyle(const UserStyle&);

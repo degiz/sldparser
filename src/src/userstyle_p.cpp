@@ -1,5 +1,7 @@
 #include "userstyle_p.h"
 
+#include "featuretypestyle_p.h"
+
 namespace SldParser {
 
 UserStylePrivate::UserStylePrivate(XmlIterator iterator) :
@@ -65,9 +67,9 @@ void UserStylePrivate::_parseNode()
             
         } else if (_iterator.name() == "FeatureTypeStyle") {
         
-            FeatureStyleType feature(_iterator);
-            _features.push_back(feature);
-            
+            FeatureStyleTypePrivate feature(_iterator);
+            FeatureStyleType pub(feature);
+            _features.push_back(pub);
         }
     }
 }

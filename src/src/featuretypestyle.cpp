@@ -4,8 +4,8 @@
 
 namespace SldParser {
 
-FeatureStyleType::FeatureStyleType(XmlIterator iterator) :
-    _p(new FeatureStyleTypePrivate(iterator))
+FeatureStyleType::FeatureStyleType(FeatureStyleTypePrivate& p) :
+    _p(new FeatureStyleTypePrivate(p))
 {
     
 }

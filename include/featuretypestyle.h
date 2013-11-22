@@ -9,11 +9,10 @@
 namespace SldParser {
 
 class FeatureStyleTypePrivate;
-class XmlIterator;
     
 class FeatureStyleType {
 public:
-    explicit FeatureStyleType(XmlIterator iterator);
+    explicit FeatureStyleType(FeatureStyleTypePrivate&);
     ~FeatureStyleType();
     
     FeatureStyleType(const FeatureStyleType&);

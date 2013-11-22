@@ -1,5 +1,7 @@
 #include "sldparser_p.h"
 
+#include "namedlayer_p.h"
+
 namespace SldParser {
 
 SLDParserPrivate::SLDParserPrivate(std::string fileName) :
@@ -45,8 +47,9 @@ bool SLDParserPrivate::_parseNamedLayers()
     
     while (iterator.moveToNextNode()) {
         if (iterator.name() == "NamedLayer") {
-            NamedLayer namedLayer(iterator);
-            _namedLayers.push_back(namedLayer);
+            NamedLayerPrivate namedLayer(iterator);
+            NamedLayer pub(namedLayer);
+            _namedLayers.push_back(pub);
         }
     }
     

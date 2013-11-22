@@ -10,11 +10,10 @@
 namespace SldParser {
 
 class RulePrivate;
-class XmlIterator;
   
 class Rule {
 public:
-    explicit Rule(XmlIterator iterator);
+    explicit Rule(RulePrivate&);
     ~Rule();
     
     Rule(const Rule& other);

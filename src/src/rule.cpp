@@ -4,8 +4,8 @@
 
 namespace SldParser {
   
-Rule::Rule(XmlIterator iterator) :
-    _p(new RulePrivate(iterator))
+Rule::Rule(RulePrivate& p) :
+    _p(new RulePrivate(p))
 {
 
 }

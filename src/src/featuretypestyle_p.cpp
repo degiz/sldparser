@@ -1,5 +1,7 @@
 #include "featuretypestyle_p.h"
 
+#include "rule_p.h"
+
 namespace SldParser {
 
 FeatureStyleTypePrivate::FeatureStyleTypePrivate(XmlIterator iterator) :
@@ -72,8 +74,9 @@ void FeatureStyleTypePrivate::_parseNode()
             
         } else if (_iterator.name() == "Rule") {
         
-            Rule rule(_iterator);
-            _rules.push_back(rule);
+            RulePrivate rule(_iterator);
+            Rule pub(rule);
+            _rules.push_back(pub);
             
         }
     }

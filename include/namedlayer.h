@@ -9,11 +9,10 @@
 namespace SldParser {
 
 class NamedLayerPrivate;
-class XmlIterator;
 
 class NamedLayer {
 public:
-    explicit NamedLayer(XmlIterator iterator);
+    explicit NamedLayer(NamedLayerPrivate&);
     ~NamedLayer();
     
     std::string nodeName() const;

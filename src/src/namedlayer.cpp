@@ -4,8 +4,8 @@
 
 namespace SldParser {
 
-NamedLayer::NamedLayer(XmlIterator iterator) :
-    _p(new NamedLayerPrivate(iterator))
+NamedLayer::NamedLayer(NamedLayerPrivate& p) :
+    _p(new NamedLayerPrivate(p))
 {
 
 }
