@@ -176,7 +176,7 @@ bool VariantPrivate::operator==(const VariantPrivate& other)
 
 bool VariantPrivate::operator!=(const VariantPrivate& other)
 {
-    return !(*this == other);
+     return asDouble() != const_cast<VariantPrivate*>(&other)->asDouble();
 }
 
 bool VariantPrivate::operator<(const VariantPrivate& other)

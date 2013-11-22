@@ -14,6 +14,7 @@ bool EqualOperation::check(IFeature& feature) const
     if (value.asString() != "") {
         return value == _value;
     }
+    return false;
 }
 
 }

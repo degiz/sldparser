@@ -13,7 +13,8 @@ bool GreaterOperation::check(IFeature& feature) const
     Variant value = feature.getFieldValue(_name);
     if (value.asString() != "") {
         return value > _value;
-    }   
+    }
+    return false;   
 }
     
 }
